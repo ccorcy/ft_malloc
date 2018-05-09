@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   malloc.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: charlescorcy <charlescorcy@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 12:36:45 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/05/08 17:33:32 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/05/09 22:14:57 by charlescorc      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,37 +14,41 @@
 
 #include <stdio.h>
 
-unsigned int	find_right_pagesize(size_t size)
+void			init_alloc(void)
 {
-	int			start;
-
-	start = 1;
-	while (size < start)
-		start *= 2;
-	return (start);
+	if (g_data.alloc == NULL)
+	{
+		g_data.alloc = call_mmap(sizeof (g_data.alloc));
+	}
 }
 
-void			*ft_malloc(size_t size)
+void			*store_alloc(t_data *data, size_t size)
 {
-	int			pagesize;
+	void		*address;
 
-	printf("INSIDE MY MALLOC\n");
-	pagesize = init_address(g_data);
-	// size <  g_data->tiny_size / 100 && size > 0
-	if (false)
+	address = call_mmap(size);
+	data->alloc->start = address;
+	data->alloc->end = address + find_right_pagesize(size);
+	return (address);
+}
+
+void			*malloc(size_t size)
+{
+	init_address(&g_data);
+	init_alloc();
+	printf("tiny_size = %d\n", g_data.tiny_size);
+	printf("small_size = %d\n", g_data.small_size);
+	if (size <  g_data.tiny_size && size > 0)
 	{
-		return (NULL);
+		write(0, "tiny\n", 5);
+		return (store_alloc(&g_data, size));
 	}
-	// size < g_data->small_size / 100 && size > 0
-	else if (false)
+	else if (size < g_data.small_size && size > 0)
 	{
-		return (NULL)
+		write(0, "small\n", 6);
+		return (store_alloc(&g_data, size));
 	}
-	else if (size > 0)
-	{
-		return (mmap(NULL, find_right_pagesize(size),
-		 PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0));
-	}
+	if (size > 0)
+		return (store_alloc(&g_data, size));
 	return (NULL);
 }
-0

@@ -85,19 +85,22 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	@ar rc $(NAME) $(OBJS)
 	@ranlib $(NAME)
+	@printf "                                                                                 \r"
 	@echo "\x1B[34mLib compiled\x1B[0m"
 
 .c.o:
-	@echo "\x1B[34mCompiling\x1B[0m" $< "\x1B[34m->\x1B[0m" $@ "\x1B[0m"
+	@printf "                                                                                 \r"
+	@printf "\x1B[34mCompiling\x1B[0m %s \x1B[34m->\x1B[0m %s \x1B[0m\r" $< $@
 	@gcc -c $< -o $@ $(FLAGS)
 
 clean:
 	@rm -f $(OBJS)
-	@echo "\x1B[31mCleaning...\x1B[0m"
+	@printf "\x1B[31mCleaning...\x1B[0m\r"
 
 fclean: clean
 	@rm -f $(NAME)
-	@echo "\x1B[31mMinishell deleted\x1B[0m"
+	@printf "                                                                                 \r"
+	@echo "\x1B[31mlibft.a deleted\x1B[0m"
 
 re: fclean all
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: charlescorcy <charlescorcy@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 14:10:03 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/05/08 17:33:51 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/05/09 22:16:46 by charlescorc      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,24 @@ void		test(void)
 
 int			main(int argc, char *argv[])
 {
-	char	*str;
+	int		nb;
+	int		i;
+	char	c;
+	int		*nbs;
 
-	str = (char *)ft_malloc((sizeof (char)) * 9);
-	str = "coucouuu";
-	printf("%s\n", str);
+	argc = 0;
+	i = 0;
+	nb = atoi(argv[1]);
+	c = argv[2][0];
+	nbs = (int *)malloc(nb + 1);
+	while (i < nb)
+	{
+		nbs[i] = i;
+		i++;
+	}
+	i = 0;
+	sleep(100);
+	free(nbs);
 	return (0);
 }
 

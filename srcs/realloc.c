@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   realloc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: charlescorcy <charlescorcy@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 14:07:02 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/05/07 14:09:10 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/05/09 21:44:38 by charlescorc      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,7 @@
 
 void	*realloc(void *ptr, size_t size)
 {
-	return ;
+	ptr = NULL;
+	size = 0;
+	return (NULL);
 }

@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_page.c                                        :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: charlescorcy <charlescorcy@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/08 15:27:44 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/05/09 22:16:17 by charlescorc      ###   ########.fr       */
+/*   Created: 2018/05/09 20:28:26 by charlescorc       #+#    #+#             */
+/*   Updated: 2018/05/09 22:15:59 by charlescorc      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_malloc.h"
 
-#include <stdio.h>
-
-void		init_address(t_data *data)
+void				*call_mmap(size_t size)
 {
-	int		pagesize;
+	void			*ptr;
+	unsigned int	pagesize;
 
-	pagesize = getpagesize();
-	printf("pagesize : %d\n", pagesize);
-	data->tiny_address = mmap(NULL, pagesize / 2,
-		PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-	data->small_address = mmap(NULL, pagesize,
-		PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-	data->tiny_size = pagesize / 2 / 100;
-	data->small_size = pagesize / 100;
-	return ;
+	pagesize = find_right_pagesize(size);
+	write(0, "\n", 1);
+	ptr = mmap(NULL, pagesize, PROT_READ | PROT_WRITE,
+		MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
+	return (ptr);
 }
