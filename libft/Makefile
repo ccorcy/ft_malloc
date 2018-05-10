@@ -6,7 +6,7 @@
 #    By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/20 15:48:39 by ccorcy            #+#    #+#              #
-#    Updated: 2018/05/06 17:42:00 by ccorcy           ###   ########.fr        #
+#    Updated: 2018/05/10 11:36:53 by ccorcy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,21 +85,21 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	@ar rc $(NAME) $(OBJS)
 	@ranlib $(NAME)
-	@printf "                                                                                 \r"
+	@// printf "                                                                                 \r"
 	@echo "\x1B[34mLib compiled\x1B[0m"
 
 .c.o:
-	@printf "                                                                                 \r"
-	@printf "\x1B[34mCompiling\x1B[0m %s \x1B[34m->\x1B[0m %s \x1B[0m\r" $< $@
+	@// printf "                                                                                 \r"
+	@// printf "\x1B[34mCompiling\x1B[0m %s \x1B[34m->\x1B[0m %s \x1B[0m\r" $< $@
 	@gcc -c $< -o $@ $(FLAGS)
 
 clean:
 	@rm -f $(OBJS)
-	@printf "\x1B[31mCleaning...\x1B[0m\r"
+	@// printf "\x1B[31mCleaning...\x1B[0m\r"
 
 fclean: clean
 	@rm -f $(NAME)
-	@printf "                                                                                 \r"
+	@// printf "                                                                                 \r"
 	@echo "\x1B[31mlibft.a deleted\x1B[0m"
 
 re: fclean all

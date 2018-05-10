@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_page.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: charlescorcy <charlescorcy@student.42.f    +#+  +:+       +#+        */
+/*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 15:27:44 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/05/09 22:16:17 by charlescorc      ###   ########.fr       */
+/*   Updated: 2018/05/10 19:11:47 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,15 @@ void		init_address(t_data *data)
 	int		pagesize;
 
 	pagesize = getpagesize();
-	printf("pagesize : %d\n", pagesize);
-	data->tiny_address = mmap(NULL, pagesize / 2,
+	if (data->tiny_address == NULL)
+		data->tiny_address = mmap(NULL, pagesize * TINY,
 		PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-	data->small_address = mmap(NULL, pagesize,
+	if (data->small_address == NULL)
+		data->small_address = mmap(NULL, pagesize * SMALL,
 		PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-	data->tiny_size = pagesize / 2 / 100;
-	data->small_size = pagesize / 100;
+	if (data->tiny_size == 0)
+		data->tiny_size = pagesize * TINY / 100;
+	if (data->small_size == 0)
+	data->small_size = pagesize * SMALL / 100;
 	return ;
 }

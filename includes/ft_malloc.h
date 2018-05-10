@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_malloc.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: charlescorcy <charlescorcy@student.42.f    +#+  +:+       +#+        */
+/*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 12:26:40 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/05/09 22:10:01 by charlescorc      ###   ########.fr       */
+/*   Updated: 2018/05/10 11:46:24 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <unistd.h>
 # include "../libft/libft.h"
 
+# define TINY 2
+# define SMALL 8
 
 typedef struct				s_alloc
 {
@@ -43,6 +45,9 @@ void						free(void *ptr);
 void						*malloc(size_t size);
 void						*realloc(void *ptr, size_t size);
 void						init_address(t_data *data);
+void						init_alloc(void);
+void						*store_alloc(size_t size);
+void						add_alloc(void *address, size_t size);
 unsigned int				find_right_pagesize(size_t size);
 void						*call_mmap(size_t size);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   malloc.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: charlescorcy <charlescorcy@student.42.f    +#+  +:+       +#+        */
+/*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 12:36:45 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/05/09 22:14:57 by charlescorc      ###   ########.fr       */
+/*   Updated: 2018/05/10 19:58:56 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,41 +14,24 @@
 
 #include <stdio.h>
 
-void			init_alloc(void)
-{
-	if (g_data.alloc == NULL)
-	{
-		g_data.alloc = call_mmap(sizeof (g_data.alloc));
-	}
-}
-
-void			*store_alloc(t_data *data, size_t size)
-{
-	void		*address;
-
-	address = call_mmap(size);
-	data->alloc->start = address;
-	data->alloc->end = address + find_right_pagesize(size);
-	return (address);
-}
-
 void			*malloc(size_t size)
 {
 	init_address(&g_data);
-	init_alloc();
-	printf("tiny_size = %d\n", g_data.tiny_size);
-	printf("small_size = %d\n", g_data.small_size);
 	if (size <  g_data.tiny_size && size > 0)
 	{
-		write(0, "tiny\n", 5);
-		return (store_alloc(&g_data, size));
+		// write(0, "TINY : ", 7);
+		return (store_alloc(size));
 	}
 	else if (size < g_data.small_size && size > 0)
 	{
-		write(0, "small\n", 6);
-		return (store_alloc(&g_data, size));
+		// printf("small_size = %d\n", g_data.small_size);
+		// write(0, "SMALL : ", 8);
+		return (store_alloc(size));
 	}
 	if (size > 0)
-		return (store_alloc(&g_data, size));
+	{
+		// write(0, "LARGE : ", 8);
+		return (store_alloc(size));
+	}
 	return (NULL);
 }
