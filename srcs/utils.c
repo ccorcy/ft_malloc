@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 20:28:26 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/05/10 20:24:41 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/05/28 14:34:15 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 #include <stdio.h>
 
-t_alloc				*add_node(void *address, size_t size)
+t_alloc				*add_node(void *address, size_t size, short type)
 {
 	t_alloc			*node;
 
 	if ((node = (t_alloc *)call_mmap(sizeof (t_alloc))) == NULL)
 		return (NULL);
 	node->start = address;
-	node->end = address + size;
+	node->end = address + size - 1;
+	node->type = type;
 	node->next = 0;
-	printf("start %p\n", node->start);
 	return (node);
 }
 
@@ -38,42 +38,31 @@ void				*call_mmap(size_t size)
 	return (ptr);
 }
 
-void			*store_alloc(size_t size)
+void			*store_alloc(void *address, size_t size, short type)
 {
-	void		*address;
-
-	address = call_mmap(size);
-	add_alloc(address, size);
+	if (!address)
+	{
+		printf("no place for u\n");
+		address = call_mmap(size);
+	}
+	add_alloc(address, size, type);
 	return (address);
 }
 
-void			add_alloc(void *address, size_t size)
+void			add_alloc(void *address, size_t size, short type)
 {
 	void		*first_alloc;
 
-	first_alloc = &g_data.alloc;
 	if (!g_data.alloc)
-	{
-		printf("address given %p\n", address);
-		g_data.alloc = add_node(address, find_right_pagesize(size));
-	}
+		g_data.alloc = add_node(address, find_right_pagesize(size), type);
 	else
 	{
-		while (g_data.alloc)
-		{
-			if (!g_data.alloc->next)
-				g_data.alloc->next = add_node(address, find_right_pagesize(size));
-			if (g_data.alloc->next)
-				break ;
+		first_alloc = g_data.alloc;
+		while (g_data.alloc->next)
 			g_data.alloc = g_data.alloc->next;
-		}
+		if (!g_data.alloc->next)
+			g_data.alloc->next = add_node(address, find_right_pagesize(size), type);
+		g_data.alloc = first_alloc;
 	}
-	g_data.alloc = first_alloc;
-	while (g_data.alloc)
-	{
-		printf("ADDRESS = %p\n", g_data.alloc->start);
-		g_data.alloc = g_data.alloc->next;
-	}
-	g_data.alloc = first_alloc;
 	return ;
 }
