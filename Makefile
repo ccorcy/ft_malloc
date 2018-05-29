@@ -6,7 +6,7 @@
 #    By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/05/07 13:04:16 by ccorcy            #+#    #+#              #
-#    Updated: 2018/05/09 23:06:56 by ccorcy           ###   ########.fr        #
+#    Updated: 2018/05/29 18:35:24 by ccorcy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ clean:
 
 fclean: clean
 	@make -C libft/ fclean
-	rm -f main
+	@rm -f main
 	@echo "main deleted"
 
 re: fclean all
