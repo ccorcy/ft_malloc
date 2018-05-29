@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 20:28:26 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/05/28 14:34:15 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/05/29 17:44:28 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_alloc				*add_node(void *address, size_t size, short type)
 	node->start = address;
 	node->end = address + size - 1;
 	node->type = type;
-	node->next = 0;
+	node->next = NULL;
 	return (node);
 }
 
@@ -54,14 +54,14 @@ void			add_alloc(void *address, size_t size, short type)
 	void		*first_alloc;
 
 	if (!g_data.alloc)
-		g_data.alloc = add_node(address, find_right_pagesize(size), type);
+		g_data.alloc = add_node(address, size, type);
 	else
 	{
 		first_alloc = g_data.alloc;
 		while (g_data.alloc->next)
 			g_data.alloc = g_data.alloc->next;
 		if (!g_data.alloc->next)
-			g_data.alloc->next = add_node(address, find_right_pagesize(size), type);
+			g_data.alloc->next = add_node(address, size, type);
 		g_data.alloc = first_alloc;
 	}
 	return ;

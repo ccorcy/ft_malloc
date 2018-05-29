@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 15:27:44 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/05/13 18:47:10 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/05/29 17:34:02 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,11 @@ void		init_address(t_data *data)
 		data->tiny_address = mmap(NULL, pagesize * TINY,
 		PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
 	if (data->small_address == NULL)
+	{
 		data->small_address = mmap(NULL, pagesize * SMALL,
 		PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+		data->large_address = data->small_address + pagesize * SMALL;
+	}
 	if (data->tiny_size == 0)
 		data->tiny_size = pagesize * TINY / 100;
 	if (data->small_size == 0)

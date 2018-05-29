@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 12:26:40 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/05/13 18:46:55 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/05/29 17:34:11 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct				s_data
 {
 	void					*tiny_address;
 	void					*small_address;
+	void					*large_address;
 	unsigned int			tiny_size;
 	unsigned int			small_size;
 	int						pagesize;

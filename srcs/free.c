@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 14:09:17 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/05/28 14:24:49 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/05/29 18:03:10 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,11 @@ void			free(void *ptr)
 	void		*first_alloc;
 
 	first_alloc = g_data.alloc;
-	printf("ptr = %p\n", ptr);
 	while (g_data.alloc)
 	{
 		if (g_data.alloc->start == ptr)
 		{
-			printf("found %p\n", g_data.alloc->start);
+			printf("free %p\n", g_data.alloc->start);
 			if (g_data.alloc->type != 2)
 				munmap(ptr, g_data.alloc->end - g_data.alloc->start - 1);
 			else
