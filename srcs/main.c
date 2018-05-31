@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 14:10:03 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/05/29 17:52:53 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/05/31 19:37:50 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void		print_alloc(void)
 	while (g_data.alloc)
 	{
 		if (g_data.alloc->type == 0)
-			printf("%p - %p : %ld octets\n", g_data.alloc->start, g_data.alloc->end, g_data.alloc->end - g_data.alloc->start);
+			printf("%p - %p : %ld octets\n", g_data.alloc->start, g_data.alloc->end, g_data.alloc->end - g_data.alloc->start + 1);
 		if (!g_data.alloc->next)
 			break;
 		g_data.alloc = g_data.alloc->next;
@@ -33,7 +33,7 @@ void		print_alloc(void)
 	while (g_data.alloc)
 	{
 		if (g_data.alloc->type == 1)
-			printf("%p - %p : %ld octets\n", g_data.alloc->start, g_data.alloc->end, g_data.alloc->end - g_data.alloc->start);
+			printf("%p - %p : %ld octets\n", g_data.alloc->start, g_data.alloc->end, g_data.alloc->end - g_data.alloc->start + 1);
 		if (!g_data.alloc->next)
 			break;
 		g_data.alloc = g_data.alloc->next;
@@ -43,7 +43,7 @@ void		print_alloc(void)
 	while (g_data.alloc)
 	{
 		if (g_data.alloc->type != 0 && g_data.alloc->type != 1)
-			printf("%p - %p : %ld octets\n", g_data.alloc->start, g_data.alloc->end, g_data.alloc->end - g_data.alloc->start);
+			printf("%p - %p : %ld octets\n", g_data.alloc->start, g_data.alloc->end, g_data.alloc->end - g_data.alloc->start + 1);
 		if (!g_data.alloc->next)
 			break;
 		g_data.alloc = g_data.alloc->next;
@@ -54,21 +54,21 @@ void		print_alloc(void)
 int			main(void)
 {
 	char	*tiny;
+	char	*tiny2;
 	char	*small;
 	char	*small2;
-	char	*large;
 
-	write(0, "here", 4);
 	tiny = (char *)malloc(2);
-	small = (char *)malloc(128);
-	small2 = (char *)malloc(129);
-	large = (char *)malloc(1024 * 1024);
+	tiny2 = (char *)malloc(4);
+	small = (char *)malloc(249);
+	small2 = (char *)malloc(250);
+	print_alloc();
+	free(tiny2);
+	tiny = (char *)realloc(tiny, 3);
+	small = (char *)realloc(small, 273);
 	print_alloc();
 	printf("\n\n----- AFTER ALLOC ----\n\n");
 	free(tiny);
-	free(small);
-	free(small2);
-	free(large);
 	return (0);
 }
 
