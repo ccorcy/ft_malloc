@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 14:10:03 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/05/31 19:37:50 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/09/20 18:41:26 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void		print_alloc(void)
 			break;
 		g_data.alloc = g_data.alloc->next;
 	}
+	printf("DONE PRINT\n");
 	g_data.alloc = first_alloc;
 }
 
@@ -64,6 +65,7 @@ int			main(void)
 	small2 = (char *)malloc(250);
 	print_alloc();
 	free(tiny2);
+	printf("DONE FREE\n");
 	tiny = (char *)realloc(tiny, 3);
 	small = (char *)realloc(small, 273);
 	print_alloc();
