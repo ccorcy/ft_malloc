@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 14:07:02 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/09/20 19:14:04 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/09/20 22:11:09 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,45 @@
 
 #include <stdio.h>
 
+static int		is_another_alloc(t_alloc *alloc, int type)
+{
+	t_alloc		*first_alloc;
+
+	if (!alloc) return (0);
+	first_alloc = alloc;
+	while (alloc)
+	{
+		if (alloc->type == type) return (1);
+		if (!alloc->next) break;
+		alloc = alloc->next;
+	}
+	alloc = first_alloc;
+	return (0);
+}
+
 static int		is_enough_place(void *start_address, void *end_address, int type)
 {
 	t_alloc		*first_alloc;
 
 	first_alloc = g_data.alloc;
-	printf("IS ENOUGH SPACE ?\n");
 	while (g_data.alloc)
 	{
 		if (g_data.alloc->type == type)
 		{
-			if (g_data.alloc->start != start_address && g_data.alloc->start < end_address
-				&& g_data.alloc->end > end_address)
-			{
-				printf("try to end %p between %p - %p\n", end_address, g_data.alloc->start, g_data.alloc->end);
-				g_data.alloc = first_alloc;
-				printf("YES !\n");
-				return (0);
-			}
+			if (g_data.alloc->start != start_address && end_address < g_data.alloc->start)
+				return (1);
+			else if (!is_another_alloc(g_data.alloc->next, type))
+				return (1);
 		}
 		if (!g_data.alloc->next)
 			break ;
 		g_data.alloc = g_data.alloc->next;
 	}
 	g_data.alloc = first_alloc;
-	printf("NO !\n");
-	return (1);
+	return (0);
 }
 
-static void		*realloc_block(t_alloc *found_alloc, void *ptr, size_t size)
+static void		*realloc_block(t_alloc *first_alloc, t_alloc *found_alloc, void *ptr, size_t size)
 {
 	int			block_size;
 	void		*addr;
@@ -51,21 +61,22 @@ static void		*realloc_block(t_alloc *found_alloc, void *ptr, size_t size)
 	{
 		block_size = TINY;
 		addr = g_data.tiny_address;
-		printf("ALLOC IS TINY\n");
 	}
 	else
 	{
 		block_size = SMALL;
 		addr = g_data.small_address;
-		printf("ALLOC IS SMALL\n");
 	}
 	if (found_alloc->start + size <= addr + g_data.pagesize * block_size)
 	{
 		if (is_enough_place(found_alloc->start, found_alloc->start + size, found_alloc->type))
+		{
 			found_alloc->end = found_alloc->start + size - 1;
+			g_data.alloc = first_alloc;
+		}
 		else
 		{
-			printf("not enough place\n");
+			g_data.alloc = first_alloc;
 			free(ptr);
 			return (malloc(size));
 		}
@@ -73,6 +84,7 @@ static void		*realloc_block(t_alloc *found_alloc, void *ptr, size_t size)
 	}
 	else
 	{
+		g_data.alloc = first_alloc;
 		free(ptr);
 		return (malloc(size));
 	}
@@ -88,6 +100,7 @@ static void		*realloc_large(t_alloc *alloc, void *ptr, size_t size)
 	}
 	else
 	{
+		g_data.alloc = alloc;
 		free(ptr);
 		return (malloc(size));
 	}
@@ -105,17 +118,16 @@ void			*realloc(void *ptr, size_t size)
 	{
 		if (g_data.alloc->start == ptr)
 		{
-			printf("alloc start is %p\n", ptr);
 			found_alloc = g_data.alloc;
-			g_data.alloc = first_alloc;
 			if (g_data.alloc->type != 2)
-				address = realloc_block(found_alloc, ptr, size);
+				address = realloc_block(first_alloc, found_alloc, ptr, size);
 			else
-				address = realloc_large(found_alloc, ptr, size);
+				address = realloc_large(first_alloc, ptr, size);
 			return (address);
 		}
 		if (!g_data.alloc->next)
 			break;
+		g_data.alloc = g_data.alloc->next;
 	}
 	g_data.alloc = first_alloc;
 	return (NULL);
