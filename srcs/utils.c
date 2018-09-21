@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 20:28:26 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/05/29 17:44:28 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/09/21 11:31:44 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,7 @@ void				*call_mmap(size_t size)
 void			*store_alloc(void *address, size_t size, short type)
 {
 	if (!address)
-	{
-		printf("no place for u\n");
 		address = call_mmap(size);
-	}
 	add_alloc(address, size, type);
 	return (address);
 }

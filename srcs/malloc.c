@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 12:36:45 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/05/29 17:57:24 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/09/21 11:32:06 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void			*alloc_tiny(size_t size)
 	{
 		if (g_data.alloc->type == 0 && g_data.alloc->end + 1 > address && g_data.alloc->end + 1 + size < g_data.tiny_address + (g_data.pagesize * TINY))
 			address = g_data.alloc->end + 1;
-		printf("max tiny address %p\n", g_data.tiny_address + (g_data.pagesize * TINY));
 		if (address > g_data.tiny_address + (g_data.pagesize * TINY))
 			return (NULL);
 		g_data.alloc = g_data.alloc->next;

@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 14:07:02 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/09/20 22:11:09 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/09/21 11:33:37 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,16 +91,21 @@ static void		*realloc_block(t_alloc *first_alloc, t_alloc *found_alloc, void *pt
 	return (NULL);
 }
 
-static void		*realloc_large(t_alloc *alloc, void *ptr, size_t size)
+static void		*realloc_large(t_alloc *first_alloc, t_alloc *found_alloc, void *ptr, size_t size)
 {
-	if (alloc->start + size <= alloc->end)
+	printf("IN REALLOC LARGE\n");
+	if (found_alloc->start + size <= found_alloc->end)
 	{
-		if (munmap(alloc->start + size, alloc->end - alloc->start + size) != -1)
+		if (munmap(found_alloc->start + size, found_alloc->end - found_alloc->start + size) != -1)
+		{
+			found_alloc->end = found_alloc->start + size;
+			g_data.alloc = first_alloc;
 			return (ptr);
+		}
 	}
 	else
 	{
-		g_data.alloc = alloc;
+		g_data.alloc = first_alloc;
 		free(ptr);
 		return (malloc(size));
 	}
@@ -122,7 +127,7 @@ void			*realloc(void *ptr, size_t size)
 			if (g_data.alloc->type != 2)
 				address = realloc_block(first_alloc, found_alloc, ptr, size);
 			else
-				address = realloc_large(first_alloc, ptr, size);
+				address = realloc_large(first_alloc, found_alloc, ptr, size);
 			return (address);
 		}
 		if (!g_data.alloc->next)

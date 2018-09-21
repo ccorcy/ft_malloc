@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 14:09:17 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/09/20 22:08:28 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/09/21 11:43:31 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ void			free(void *ptr)
 	{
 		if (g_data.alloc->start == ptr)
 		{
-			if (g_data.alloc->type != 2)
-				munmap(ptr, g_data.alloc->end - g_data.alloc->start + 1);
+			if (g_data.alloc->type == 2)
+			{
+				munmap(ptr, find_right_pagesize(g_data.alloc->end - g_data.alloc->start + 1));
+			}
+			if (previous == first_alloc && previous == g_data.alloc)
+				first_alloc = g_data.alloc->next;
 			else
-				munmap(ptr, g_data.alloc->end - g_data.alloc->start + 1);
-			if (g_data.alloc->next)
 				previous->next = g_data.alloc->next;
-			else
-				previous->next = NULL;
 			munmap(g_data.alloc, find_right_pagesize(sizeof (t_alloc)));
 			g_data.alloc = first_alloc;
 			return ;
