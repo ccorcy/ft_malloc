@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 14:10:03 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/09/21 12:47:52 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/09/21 15:14:58 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,35 +23,28 @@ int			main(void)
 	char	*small;
 	char	*small2;
 	char	*small3;
+	char	*small4;
+	char	*small5;
 	char	*large;
-	char	*large2;
-	char	*large3;
+	char	*large_cpy = NULL;
 
-	small3 = (char *)malloc(265);
-	tiny = (char *)malloc(2);
-	tiny3 = (char *)malloc(10);
-	tiny2 = (char *)malloc(4);
-	small2 = (char *)malloc(250);
-	small = (char *)malloc(249);
-	tiny4 = (char *)malloc(12);
-	large = (char *)malloc(2082);
-	large2 = (char *)malloc(51223);
-	large3 = (char *)malloc(12312);
+	tiny = (char *)malloc(5);
+	tiny2 = (char *)malloc(6);
+	tiny3 = (char *)malloc(7);
+	small = (char *)malloc(250);
+	small2 = (char *)malloc(150);
+	small3 = (char *)malloc(120);
+	large = (char *)malloc(512);
 	show_alloc_mem();
 	free(tiny2);
 	free(small2);
-	free(large2);
-	tiny = (char *)realloc(tiny, 6);
-	small = (char *)realloc(small, 273);
-	large = (char *)realloc(large, 65000);
-	printf("\n\n----- AFTER ALLOC ----\n\n");
-	free(tiny3);
-	free(tiny);
-	free(small);
-	free(small3);
-	free(large);
-	tiny = "a0sda0d9aka0d9kas0da9skda0ad09kasd09akda09sdka09dksad9k";
-	ft_putstr(tiny);
+	tiny4 = (char *)malloc(6);
+	small4 = (char *)malloc(233);
+	small5 = (char *)malloc(103);
+	show_alloc_mem();
+	ft_strcpy(large_cpy, large);
+	large = NULL;
+	sleep(1000);
 	return (0);
 }
 
