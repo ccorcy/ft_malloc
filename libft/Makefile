@@ -6,7 +6,7 @@
 #    By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/20 15:48:39 by ccorcy            #+#    #+#              #
-#    Updated: 2018/05/29 18:38:09 by ccorcy           ###   ########.fr        #
+#    Updated: 2018/09/21 12:29:09 by ccorcy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ SRCS = ./ft_abs.c \
 		./ft_putnbr_fd.c \
 		./ft_putstr.c \
 		./ft_putstr_fd.c \
+		./ft_putaddr.c \
 		./ft_strcat.c \
 		./ft_strchr.c \
 		./ft_strclr.c \
