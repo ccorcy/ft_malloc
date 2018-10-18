@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 12:26:40 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/09/21 12:05:24 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/10/18 11:33:38 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ typedef struct				s_data
 	t_alloc					*alloc;
 }							t_data;
 
-
 t_data						g_data;
 extern t_data				g_data;
 
@@ -51,9 +50,9 @@ void						show_alloc_mem(void);
 void						init_address(t_data *data);
 void						init_alloc(void);
 t_alloc						*add_node(void *address, size_t size, short type);
-void						*store_alloc(void *address, size_t size, short type);
+void						*store_alloc(void *addr, size_t size, short type);
 void						add_alloc(void *address, size_t size, short type);
-unsigned int				find_right_pagesize(size_t size);
+unsigned int				find_ps(size_t size);
 void						*call_mmap(size_t size);
 
 #endif

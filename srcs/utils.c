@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 20:28:26 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/09/21 11:31:44 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/10/18 11:35:45 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_alloc				*add_node(void *address, size_t size, short type)
 {
 	t_alloc			*node;
 
-	if ((node = (t_alloc *)call_mmap(sizeof (t_alloc))) == NULL)
+	if ((node = (t_alloc *)call_mmap(sizeof(t_alloc))) == NULL)
 		return (NULL);
 	node->start = address;
 	node->end = address + size - 1;
@@ -32,7 +32,7 @@ void				*call_mmap(size_t size)
 	void			*ptr;
 	unsigned int	pagesize;
 
-	pagesize = find_right_pagesize(size);
+	pagesize = find_ps(size);
 	ptr = mmap(NULL, pagesize, PROT_READ | PROT_WRITE,
 		MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
 	return (ptr);

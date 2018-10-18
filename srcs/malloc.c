@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 12:36:45 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/09/21 14:56:21 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/10/18 11:30:04 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static t_alloc	*find_next_alloc_by_type(t_alloc *alloc, short type)
 		alloc = alloc->next;
 	}
 	alloc = first_alloc;
-	return (NULL);	
+	return (NULL);
 }
 
 void			*alloc_tiny(size_t size)
@@ -96,7 +96,8 @@ void			*alloc_small(size_t size)
 		if (g_data.alloc->type == 1 && g_data.alloc->end + 1 > address)
 		{
 			address = g_data.alloc->end + 1;
-			if ((next_alloc = find_next_alloc_by_type(g_data.alloc->next, 1))) {
+			if ((next_alloc = find_next_alloc_by_type(g_data.alloc->next, 1)))
+			{
 				if (next_alloc->start > address + size - 1)
 				{
 					g_data.alloc = first_alloc;
@@ -116,7 +117,7 @@ void			*alloc_small(size_t size)
 void			*malloc(size_t size)
 {
 	init_address(&g_data);
-	if (size <  g_data.tiny_size && size > 0)
+	if (size < g_data.tiny_size && size > 0)
 		return (store_alloc(alloc_tiny(size), size, 0));
 	else if (size < g_data.small_size && size > 0)
 		return (store_alloc(alloc_small(size), size, 1));

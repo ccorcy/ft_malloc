@@ -6,7 +6,7 @@
 #    By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/05/07 13:04:16 by ccorcy            #+#    #+#              #
-#    Updated: 2018/09/21 12:48:38 by ccorcy           ###   ########.fr        #
+#    Updated: 2018/10/18 11:42:21 by ccorcy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,8 +45,8 @@ clean:
 
 fclean: clean
 	@make -C libft/ fclean
-	@rm -f main
-	@echo "main deleted"
+	@rm -f $(MALLOC_NAME)
+	@echo "\x1B[31m"$(MALLOC_NAME) "deleted\x1B[0m"
 
 re: fclean all
 
