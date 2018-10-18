@@ -1,9 +1,9 @@
 # 42 Project : ft_malloc
 ## **Goal** :
 Create a shared library that implement: \
-	- malloc \
-	- realloc \
-	-free
+	- `malloc` \
+	- `realloc` \
+	- `free`
 
 ## **Authorized functions** :
 	- mmap(2)

@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 20:28:26 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/10/18 11:35:45 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/10/18 13:16:30 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void				*call_mmap(size_t size)
 	return (ptr);
 }
 
-void			*store_alloc(void *address, size_t size, short type)
+void				*store_alloc(void *address, size_t size, short type)
 {
 	if (!address)
 		address = call_mmap(size);
@@ -46,9 +46,9 @@ void			*store_alloc(void *address, size_t size, short type)
 	return (address);
 }
 
-void			add_alloc(void *address, size_t size, short type)
+void				add_alloc(void *address, size_t size, short type)
 {
-	void		*first_alloc;
+	void			*first_alloc;
 
 	if (!g_data.alloc)
 		g_data.alloc = add_node(address, size, type);
@@ -62,4 +62,13 @@ void			add_alloc(void *address, size_t size, short type)
 		g_data.alloc = first_alloc;
 	}
 	return ;
+}
+
+void				*cpy_before_realloc(size_t s, void *p)
+{
+	void			*new_addr;
+
+	new_addr = ft_memcpy(malloc(s), p, s);
+	free(p);
+	return (new_addr);
 }

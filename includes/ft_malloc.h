@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 12:26:40 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/10/18 11:33:38 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/10/18 13:17:04 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void						init_alloc(void);
 t_alloc						*add_node(void *address, size_t size, short type);
 void						*store_alloc(void *addr, size_t size, short type);
 void						add_alloc(void *address, size_t size, short type);
+void						*cpy_before_realloc(size_t size, void *p);
 unsigned int				find_ps(size_t size);
 void						*call_mmap(size_t size);
 
