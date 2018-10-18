@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 14:07:02 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/10/18 13:18:25 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/10/18 13:47:27 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,21 +52,6 @@ static int		is_enough_place(void *s_addr, void *e_addr, int type)
 	}
 	g_data.alloc = first_alloc;
 	return (0);
-}
-
-static void		get_block_and_addr(t_alloc *fo_alc, int *bs, void **addr)
-{
-	if (fo_alc->type == 0)
-	{
-		*bs = TINY;
-		*addr = g_data.tiny_address;
-	}
-	else
-	{
-		*bs = SMALL;
-		*addr = g_data.small_address;
-	}
-	return ;
 }
 
 static void		*realloc_b(t_alloc *f_alc, t_alloc *fo_alc, void *p, size_t s)

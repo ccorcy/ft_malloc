@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/21 12:04:29 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/10/18 11:23:21 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/10/18 13:45:35 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void		show_small(t_alloc *first_alloc)
 			ft_putstr(" octets\n");
 		}
 		if (!g_data.alloc->next)
-			break;
+			break ;
 		g_data.alloc = g_data.alloc->next;
 	}
 	g_data.alloc = first_alloc;
