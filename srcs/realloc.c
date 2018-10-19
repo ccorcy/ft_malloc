@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 14:07:02 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/10/19 19:13:34 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/10/19 19:22:16 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@ static int		is_enough_place(void *s_addr, void *e_addr, int type)
 		if (g_data.alloc->type == type)
 		{
 			if (g_data.alloc->start != s_addr && e_addr < g_data.alloc->start)
+				return (1);
+			else if (g_data.alloc->start == s_addr
+				&& find_next_alloc_by_type(g_data.alloc->next, type) == NULL)
 				return (1);
 			else if (!is_another_alloc(g_data.alloc, type))
 				return (1);

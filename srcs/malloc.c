@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 12:36:45 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/10/19 13:55:41 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/10/19 19:21:34 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #include <stdio.h>
 
-static t_alloc	*find_next_alloc_by_type(t_alloc *alloc, short type)
+t_alloc	*find_next_alloc_by_type(t_alloc *alloc, short type)
 {
 	t_alloc		*first_alloc;
 	t_alloc		*found_alloc;
