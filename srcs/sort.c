@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 18:38:26 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/10/19 13:45:15 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/10/19 19:11:45 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void			swap(t_alloc **a, t_alloc **b)
 void				sort_alloc(void)
 {
 	t_alloc			*first;
-
+	return ;
 	g_data.alloc ? (first = g_data.alloc) : (first = NULL);
 	if (first == NULL)
 		return ;

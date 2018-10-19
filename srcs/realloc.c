@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 14:07:02 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/10/19 10:12:04 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/10/19 19:13:34 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,23 @@ static void		*realloc_b(t_alloc *f_alc, t_alloc *fo_alc, void *p, size_t s)
 
 static void		*realloc_l(t_alloc *f_alc, t_alloc *fo_alc, void *p, size_t s)
 {
+	if (s < g_data.tiny_size && s > 0)
+	{
+		fo_alc->type = 0;
+		return (cpy_before_realloc(s, fo_alc->start));
+	}
+	else if (s < g_data.small_size && s > 0)
+	{
+		fo_alc->type = 1;
+		return (cpy_before_realloc(s, fo_alc->start));
+	}
 	if (fo_alc->start + s <= fo_alc->end)
 	{
 		if (munmap(fo_alc->start + s, fo_alc->end - fo_alc->start + s) != -1)
 		{
 			fo_alc->end = fo_alc->start + s;
 			g_data.alloc = f_alc;
-			return (p);
+			return (fo_alc);
 		}
 	}
 	else
