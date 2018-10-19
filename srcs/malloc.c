@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 12:36:45 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/10/19 11:38:17 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/10/19 13:55:41 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,20 +40,14 @@ static void		*check_position(t_alloc *a, void *addr, size_t s, short type)
 	t_alloc		*next_alloc;
 
 	if (a->type == type && a->start > addr + s - 1)
-	{
-		printf("T'as la place d'etre devant");
 		return (addr);
-	}
 	else if (a->type == type && a->end + 1 > addr)
 	{
 		addr = a->end + 1;
 		if ((next_alloc = find_next_alloc_by_type(a->next, type)))
 		{
 			if (next_alloc->start > addr + s - 1)
-			{
-				printf("tu peux te mettre derriere\n");
 				return (addr);
-			}
 			else
 				return (NULL);
 		}
@@ -70,7 +64,7 @@ void			*alloc_tiny(size_t size)
 	void		*first_alloc;
 	void		*check;
 
-	g_data.alloc ? first_alloc = g_data.alloc : (first_alloc = NULL);
+	g_data.alloc != NULL ? first_alloc = g_data.alloc : (first_alloc = NULL);
 	address = g_data.tiny_address;
 	if (!first_alloc)
 		return (address);
@@ -79,10 +73,10 @@ void			*alloc_tiny(size_t size)
 		check = check_position(g_data.alloc, address, size, 0);
 		if (check != NULL)
 		{
-			printf("%p\n", check);
 			g_data.alloc = first_alloc;
 			return (check);
 		}
+		address = g_data.alloc->end + 1;
 		if (address > g_data.tiny_address + (g_data.pagesize * TINY))
 			return (NULL);
 		g_data.alloc = g_data.alloc->next;
@@ -97,7 +91,7 @@ void			*alloc_small(size_t size)
 	void		*first_alloc;
 	void		*check;
 
-	g_data.alloc ? first_alloc = g_data.alloc : (first_alloc = NULL);
+	g_data.alloc != NULL ? first_alloc = g_data.alloc : (first_alloc = NULL);
 	address = g_data.small_address;
 	if (!first_alloc)
 		return (address);
@@ -109,6 +103,7 @@ void			*alloc_small(size_t size)
 			g_data.alloc = first_alloc;
 			return (check);
 		}
+		address = g_data.alloc->end + 1;
 		if (address > g_data.small_address + (g_data.pagesize * SMALL))
 			return (NULL);
 		g_data.alloc = g_data.alloc->next;
