@@ -6,7 +6,7 @@
 #    By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/05/07 13:04:16 by ccorcy            #+#    #+#              #
-#    Updated: 2018/10/18 11:42:21 by ccorcy           ###   ########.fr        #
+#    Updated: 2018/10/18 18:47:26 by ccorcy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ MALLOC_NAME = libft_malloc_$(HOSTTYPE).so
 NAME = main
 SRCS = $(SRCDIR)/main.c $(SRCDIR)/free.c $(SRCDIR)/init_page.c \
 		$(SRCDIR)/malloc.c $(SRCDIR)/page_size.c $(SRCDIR)/realloc.c \
-		$(SRCDIR)/utils.c $(SRCDIR)/show_alloc_mem.c
+		$(SRCDIR)/utils.c $(SRCDIR)/show_alloc_mem.c $(SRCDIR)/sort.c
 OBJS = $(patsubst $(SRCDIR)/%, $(OBJDIR)/%, $(SRCS:.c=.o))
 FLAGS = -Wall -Werror -Wextra
 

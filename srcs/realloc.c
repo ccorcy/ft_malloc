@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 14:07:02 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/10/18 13:47:27 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/10/19 10:12:04 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,9 @@ void			*realloc(void *ptr, size_t size)
 	t_alloc		*found_alloc;
 	void		*address;
 
-	first_alloc = g_data.alloc;
+	g_data.alloc ? first_alloc = g_data.alloc : (first_alloc = NULL);
+	if (!first_alloc)
+		return (NULL);
 	while (g_data.alloc)
 	{
 		if (g_data.alloc->start == ptr)

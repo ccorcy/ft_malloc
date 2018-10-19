@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 12:26:40 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/10/18 18:15:49 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/10/18 18:45:27 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,6 @@ void						*cpy_before_realloc(size_t size, void *p);
 unsigned int				find_ps(size_t size);
 void						get_block_and_addr(t_alloc *a, int *b, void **adr);
 void						*call_mmap(size_t size);
+void						sort_alloc(void);
 
 #endif
