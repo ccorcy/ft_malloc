@@ -6,15 +6,15 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 20:28:26 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/10/25 11:20:45 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/10/25 14:22:39 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_malloc.h"
-
-t_alloc				*add_node(void *address, size_t size, short type)
+#include <stdio.h>
+t_alloc			*add_node(void *address, size_t size, short type)
 {
-	t_alloc			*node;
+	t_alloc		*node;
 
 	if ((node = (t_alloc *)call_mmap(sizeof(t_alloc))) == NULL)
 		return (NULL);
@@ -25,10 +25,10 @@ t_alloc				*add_node(void *address, size_t size, short type)
 	return (node);
 }
 
-void				*call_mmap(size_t size)
+void			*call_mmap(size_t size)
 {
-	void			*ptr;
-	unsigned int	pagesize;
+	void		*ptr;
+	size_t		pagesize;
 
 	pagesize = find_ps(size);
 	ptr = mmap(NULL, pagesize, PROT_READ | PROT_WRITE,
@@ -36,17 +36,19 @@ void				*call_mmap(size_t size)
 	return (ptr);
 }
 
-void				*store_alloc(void *address, size_t size, short type)
+void			*store_alloc(void *f, void *address, size_t size, short type)
 {
+	if (f)
+		g_data.alloc = f;
 	if (!address)
 		address = call_mmap(size);
 	add_alloc(address, size, type);
 	return (address);
 }
 
-void				add_alloc(void *address, size_t size, short type)
+void			add_alloc(void *address, size_t size, short type)
 {
-	void			*first_alloc;
+	void		*first_alloc;
 
 	if (!g_data.alloc)
 		g_data.alloc = add_node(address, size, type);
@@ -62,9 +64,9 @@ void				add_alloc(void *address, size_t size, short type)
 	return ;
 }
 
-void				*cpy_before_realloc(size_t s, void *p)
+void			*cpy_before_realloc(size_t s, void *p)
 {
-	void			*new_addr;
+	void		*new_addr;
 
 	new_addr = ft_memcpy(malloc(s), p, s);
 	free(p);
