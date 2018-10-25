@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 14:07:02 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/10/25 11:20:39 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/10/25 12:39:12 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ static void		*realloc_b(t_alloc *f_alc, t_alloc *fo_alc, void *p, size_t s)
 
 	get_block_and_addr(fo_alc, &block_size, &addr);
 	if (fo_alc->start + s <= addr + g_data.pagesize * block_size)
+	{
 		if (is_enough_place(fo_alc->start, fo_alc->start + s - 1, fo_alc->type))
 		{
 			fo_alc->end = fo_alc->start + s - 1;
@@ -70,11 +71,15 @@ static void		*realloc_b(t_alloc *f_alc, t_alloc *fo_alc, void *p, size_t s)
 		}
 		else
 		{
+			g_data.alloc = f_alc;
 			return (cpy_before_realloc(s, p));
 		}
+	}
 	else
+	{
+		g_data.alloc = f_alc;
 		return (cpy_before_realloc(s, p));
-	return (NULL);
+	}
 }
 
 static void		*realloc_l(t_alloc *f_alc, t_alloc *fo_alc, void *p, size_t s)
@@ -115,7 +120,8 @@ void			*realloc(void *ptr, size_t size)
 	t_alloc		*found_alloc;
 	void		*address;
 
-	g_data.alloc ? first_alloc = g_data.alloc : (first_alloc = NULL);
+	first_alloc = NULL;
+	g_data.alloc ? first_alloc = g_data.alloc : NULL;
 	if (!first_alloc)
 		return (NULL);
 	while (g_data.alloc)
