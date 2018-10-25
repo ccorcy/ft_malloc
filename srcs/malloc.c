@@ -6,13 +6,11 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 12:36:45 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/10/19 19:21:34 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/10/25 11:20:17 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_malloc.h"
-
-#include <stdio.h>
 
 t_alloc	*find_next_alloc_by_type(t_alloc *alloc, short type)
 {
@@ -66,7 +64,7 @@ void			*alloc_tiny(size_t size)
 
 	g_data.alloc != NULL ? first_alloc = g_data.alloc : (first_alloc = NULL);
 	address = g_data.tiny_address;
-	if (!first_alloc)
+	if (!first_alloc || !find_next_alloc_by_type(first_alloc, 0))
 		return (address);
 	while (g_data.alloc)
 	{
@@ -93,7 +91,7 @@ void			*alloc_small(size_t size)
 
 	g_data.alloc != NULL ? first_alloc = g_data.alloc : (first_alloc = NULL);
 	address = g_data.small_address;
-	if (!first_alloc)
+	if (!first_alloc || !find_next_alloc_by_type(first_alloc, 1))
 		return (address);
 	while (g_data.alloc)
 	{
@@ -123,7 +121,8 @@ void			*malloc(size_t size)
 	g_data.alloc ? first = g_data.alloc : (first = NULL);
 	if (size < g_data.tiny_size && size > 0)
 		addr = store_alloc(alloc_tiny(size), size, 0);
-	else if (size < g_data.small_size && size > 0)
+	if ((size < g_data.small_size && size > g_data.tiny_size)
+		|| (size < g_data.tiny_size && size > 0 && addr == NULL))
 		addr = store_alloc(alloc_small(size), size, 1);
 	if (size > 0 && addr == NULL)
 		addr = store_alloc(NULL, size, 2);

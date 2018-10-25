@@ -6,13 +6,11 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 15:27:44 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/09/20 18:35:11 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/10/25 11:20:26 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_malloc.h"
-
-#include <stdio.h>
 
 void		init_address(t_data *data)
 {

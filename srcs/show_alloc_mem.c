@@ -6,12 +6,11 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/21 12:04:29 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/10/19 13:51:50 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/10/25 11:20:43 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_malloc.h"
-#include <stdio.h>
 
 static void		show_tiny(t_alloc *first_alloc)
 {
@@ -38,7 +37,7 @@ static void		show_tiny(t_alloc *first_alloc)
 
 static void		show_small(t_alloc *first_alloc)
 {
-	ft_putstr("SMALL  : ");
+	ft_putstr("SMALL : ");
 	ft_putaddr(g_data.small_address);
 	ft_putchar('\n');
 	while (g_data.alloc)
@@ -61,7 +60,7 @@ static void		show_small(t_alloc *first_alloc)
 
 static void		show_large(t_alloc *first_alloc)
 {
-	ft_putstr("LARGE  : ");
+	ft_putstr("LARGE : ");
 	ft_putaddr(g_data.large_address);
 	ft_putchar('\n');
 	while (g_data.alloc)

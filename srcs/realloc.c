@@ -6,13 +6,11 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 14:07:02 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/10/19 23:06:54 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/10/25 11:20:39 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_malloc.h"
-
-#include <stdio.h>
 
 static int		is_another_alloc(t_alloc *alloc, int type)
 {
@@ -96,7 +94,7 @@ static void		*realloc_l(t_alloc *f_alc, t_alloc *fo_alc, void *p, size_t s)
 	if (fo_alc->start + s <= fo_alc->end)
 	{
 		if (munmap(fo_alc->start,
-			find_ps(fo_alc->end - fo_alc->start + s - 1)) != -1)
+			fo_alc->end - fo_alc->start + s - 1) != -1)
 		{
 			fo_alc->end = fo_alc->start + s - 1;
 			g_data.alloc = f_alc;
