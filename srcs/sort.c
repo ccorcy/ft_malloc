@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 18:38:26 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/10/25 12:33:59 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/10/26 12:58:12 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void				sort_alloc(void)
 				sort_alloc();
 			}
 		}
+		if (!g_data.alloc->next)
+			break ;
 		g_data.alloc = g_data.alloc->next;
 	}
 	first ? g_data.alloc = first : NULL;

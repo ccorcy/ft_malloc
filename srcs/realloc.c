@@ -6,12 +6,13 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 14:07:02 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/10/25 14:10:35 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/10/26 16:23:17 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_malloc.h"
 #include <stdio.h>
+
 static int		is_another_alloc(t_alloc *alloc, int type)
 {
 	t_alloc		*first_alloc;
@@ -55,7 +56,7 @@ static int		is_enough_place(void *s_addr, void *e_addr, int type)
 	return (0);
 }
 
-static void		*realloc_b(t_alloc *fo_alc, void *p, size_t s)
+static void		*realloc_b(t_alloc *fo_alc, size_t s)
 {
 	int			block_size;
 	void		*addr;
@@ -69,13 +70,13 @@ static void		*realloc_b(t_alloc *fo_alc, void *p, size_t s)
 			return (fo_alc->start);
 		}
 		else
-			return (cpy_before_realloc(s, p));
+			return (cpy_before_realloc(s, fo_alc->start));
 	}
 	else
-		return (cpy_before_realloc(s, p));
+		return (cpy_before_realloc(s, fo_alc->start));
 }
 
-static void		*realloc_l(t_alloc *fo_alc, void *p, size_t s)
+static void		*realloc_l(t_alloc *fo_alc, size_t s)
 {
 	if (s < g_data.tiny_size && s > 0)
 	{
@@ -90,20 +91,24 @@ static void		*realloc_l(t_alloc *fo_alc, void *p, size_t s)
 	if (fo_alc->start + s <= fo_alc->end)
 	{
 		if (munmap(fo_alc->start,
-			fo_alc->end - fo_alc->start + s - 1) != -1)
+			find_ps(fo_alc->end - fo_alc->start + s - 1)) != -1)
 		{
 			fo_alc->end = fo_alc->start + s - 1;
-			return (fo_alc);
+			return (fo_alc->start);
 		}
 	}
 	else
-		return (cpy_before_realloc(s, p));
+	{
+		printf("not enough place in the current allocation\n");
+		return (cpy_before_realloc(fo_alc->end - fo_alc->start + 1,
+			fo_alc->start));
+	}
 	return (NULL);
 }
 
 void			*realloc(void *ptr, size_t size)
 {
-	void		*first_alloc;
+	t_alloc		*first_alloc;
 	t_alloc		*found_alloc;
 	void		*address;
 
@@ -118,12 +123,13 @@ void			*realloc(void *ptr, size_t size)
 			found_alloc = g_data.alloc;
 			g_data.alloc = first_alloc;
 			if (found_alloc->type != 2)
-				address = realloc_b(found_alloc, ptr, size);
+				address = realloc_b(found_alloc, size);
 			else
-				address = realloc_l(found_alloc, ptr, size);
+				address = realloc_l(found_alloc, size);
 			return (address);
 		}
-		g_data.alloc = g_data.alloc->next;
+		if ((g_data.alloc = g_data.alloc->next) == NULL)
+			break ;
 	}
 	g_data.alloc = first_alloc;
 	return (NULL);

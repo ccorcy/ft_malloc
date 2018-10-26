@@ -6,18 +6,20 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 14:09:17 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/10/25 11:20:23 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/10/26 15:44:06 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_malloc.h"
+#include <stdio.h>
 
 void			free(void *p)
 {
 	void		*first_alloc;
 	t_alloc		*previous;
 
-	g_data.alloc ? first_alloc = g_data.alloc : (first_alloc = NULL);
+	first_alloc = NULL;
+	g_data.alloc ? first_alloc = g_data.alloc : NULL;
 	if (!first_alloc)
 		return ;
 	previous = first_alloc;
@@ -33,8 +35,7 @@ void			free(void *p)
 			else
 				previous->next = g_data.alloc->next;
 			munmap(g_data.alloc, find_ps(sizeof(t_alloc)));
-			g_data.alloc = first_alloc;
-			return ;
+			break ;
 		}
 		previous = g_data.alloc;
 		g_data.alloc = g_data.alloc->next;

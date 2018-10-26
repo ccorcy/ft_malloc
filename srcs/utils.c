@@ -6,12 +6,13 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 20:28:26 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/10/25 14:22:39 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/10/26 16:25:26 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_malloc.h"
 #include <stdio.h>
+
 t_alloc			*add_node(void *address, size_t size, short type)
 {
 	t_alloc		*node;
@@ -68,7 +69,16 @@ void			*cpy_before_realloc(size_t s, void *p)
 {
 	void		*new_addr;
 
-	new_addr = ft_memcpy(malloc(s), p, s);
-	free(p);
-	return (new_addr);
+	if ((new_addr = (void *)malloc(s)) != NULL)
+	{
+		printf("size is %zu\n", s);
+		printf("new address is now %p\nold address is %p.", new_addr, p);
+		new_addr = ft_memcpy(new_addr, p, s);
+		free(p);
+		return (new_addr);
+	}
+	else
+	{
+		return (NULL);
+	}
 }
