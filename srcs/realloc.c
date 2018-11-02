@@ -6,19 +6,19 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 14:07:02 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/11/02 12:54:37 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/11/02 16:36:27 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_malloc.h"
 
-static int		is_another_alloc(t_alloc *alloc, int type)
+static int		is_another_alloc(t_alloc *f, t_alloc *alloc, int type)
 {
 	t_alloc		*first_alloc;
 
 	if (!alloc)
 		return (0);
-	first_alloc = alloc;
+	first_alloc = f;
 	while (alloc)
 	{
 		if (alloc->type == type)
@@ -43,7 +43,7 @@ static int		is_enough_place(void *s_addr, void *e_addr, int type)
 			else if (g_data.alloc->start == s_addr
 				&& find_next_alloc_by_type(g_data.alloc->next, type) == NULL)
 				return (1);
-			else if (!is_another_alloc(g_data.alloc, type))
+			else if (!is_another_alloc(first_alloc, g_data.alloc, type))
 				return (1);
 			else if (g_data.alloc->start != s_addr
 				&& e_addr > g_data.alloc->start)
@@ -110,25 +110,22 @@ void			*realloc(void *ptr, size_t size)
 	t_alloc		*found_alloc;
 	void		*address;
 
-	first_alloc = NULL;
-	g_data.alloc ? first_alloc = g_data.alloc : NULL;
-	if (!first_alloc)
-		return (NULL);
+	first_alloc = g_data.alloc;
+	address = NULL;
 	while (g_data.alloc)
 	{
 		if (g_data.alloc->start == ptr)
 		{
 			found_alloc = g_data.alloc;
-			g_data.alloc = first_alloc;
 			if (found_alloc->type != 2)
 				address = realloc_b(found_alloc, size);
 			else
 				address = realloc_l(found_alloc, size);
-			return (address);
+			break ;
 		}
 		if ((g_data.alloc = g_data.alloc->next) == NULL)
 			break ;
 	}
 	g_data.alloc = first_alloc;
-	return (NULL);
+	return (address);
 }

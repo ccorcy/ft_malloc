@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/21 12:04:29 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/10/25 11:20:43 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/11/02 16:36:37 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,13 +100,14 @@ void			show_total(t_alloc *first_alloc)
 
 void			show_alloc_mem(void)
 {
-	void		*first_alloc;
+	t_alloc		*first_alloc;
 
-	sort_alloc();
 	first_alloc = g_data.alloc;
+	sort_alloc();
 	show_tiny(first_alloc);
 	show_small(first_alloc);
 	show_large(first_alloc);
 	show_total(first_alloc);
 	g_data.alloc = first_alloc;
+	return ;
 }
