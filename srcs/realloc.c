@@ -6,12 +6,11 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 14:07:02 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/10/26 16:23:17 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/11/02 12:54:37 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_malloc.h"
-#include <stdio.h>
 
 static int		is_another_alloc(t_alloc *alloc, int type)
 {
@@ -99,8 +98,7 @@ static void		*realloc_l(t_alloc *fo_alc, size_t s)
 	}
 	else
 	{
-		printf("not enough place in the current allocation\n");
-		return (cpy_before_realloc(fo_alc->end - fo_alc->start + 1,
+		return (cpy_before_realloc(s,
 			fo_alc->start));
 	}
 	return (NULL);
