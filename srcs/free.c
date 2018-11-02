@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 14:09:17 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/11/02 12:58:15 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/11/02 14:44:18 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,7 @@ void			free(void *p)
 	void		*first_alloc;
 	t_alloc		*previous;
 
-	first_alloc = NULL;
-	g_data.alloc ? first_alloc = g_data.alloc : NULL;
-	if (!first_alloc)
-		return ;
+	first_alloc = g_data.alloc;
 	previous = first_alloc;
 	while (g_data.alloc)
 	{

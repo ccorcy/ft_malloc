@@ -6,7 +6,7 @@
 #    By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/05/07 13:04:16 by ccorcy            #+#    #+#              #
-#    Updated: 2018/11/02 13:13:05 by ccorcy           ###   ########.fr        #
+#    Updated: 2018/11/02 14:40:28 by ccorcy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ all: $(NAME)
 main: $(OBJS)
 	@make -C libft/
 	@gcc $(FLAGS) $(OBJS) -shared -Llibft -lft -I includes -o $(MALLOC_NAME)
-	@ln -sF $(SYMLINK_NAME)
+	@ln -sF $(MALLOC_NAME) $(SYMLINK_NAME)
 	@echo "sources compiled"
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
