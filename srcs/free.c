@@ -6,12 +6,11 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 14:09:17 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/10/26 15:44:06 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/11/02 12:58:15 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_malloc.h"
-#include <stdio.h>
 
 void			free(void *p)
 {

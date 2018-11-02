@@ -6,7 +6,7 @@
 #    By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/05/07 13:04:16 by ccorcy            #+#    #+#              #
-#    Updated: 2018/10/18 18:47:26 by ccorcy           ###   ########.fr        #
+#    Updated: 2018/11/02 13:13:05 by ccorcy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,9 @@ SRCDIR = srcs
 OBJDIR = objs
 
 MALLOC_NAME = libft_malloc_$(HOSTTYPE).so
+SYMLINK_NAME = libft_malloc.so
 NAME = main
-SRCS = $(SRCDIR)/main.c $(SRCDIR)/free.c $(SRCDIR)/init_page.c \
+SRCS = $(SRCDIR)/free.c $(SRCDIR)/init_page.c \
 		$(SRCDIR)/malloc.c $(SRCDIR)/page_size.c $(SRCDIR)/realloc.c \
 		$(SRCDIR)/utils.c $(SRCDIR)/show_alloc_mem.c $(SRCDIR)/sort.c
 OBJS = $(patsubst $(SRCDIR)/%, $(OBJDIR)/%, $(SRCS:.c=.o))
@@ -29,8 +30,8 @@ all: $(NAME)
 
 main: $(OBJS)
 	@make -C libft/
-	@gcc $(FLAGS) $(OBJS) -Llibft/ -lft -I includes -o main
 	@gcc $(FLAGS) $(OBJS) -shared -Llibft -lft -I includes -o $(MALLOC_NAME)
+	@ln -sF $(SYMLINK_NAME)
 	@echo "sources compiled"
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
@@ -46,8 +47,10 @@ clean:
 fclean: clean
 	@make -C libft/ fclean
 	@rm -f $(MALLOC_NAME)
+	@rm -f $(SYMLINK_NAME)
+	@echo "\x1B[31m"$(SYMLINK_NAME) "deleted\x1B[0m"
 	@echo "\x1B[31m"$(MALLOC_NAME) "deleted\x1B[0m"
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re main

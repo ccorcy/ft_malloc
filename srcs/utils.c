@@ -6,12 +6,11 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 20:28:26 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/11/02 12:54:24 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/11/02 12:58:17 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_malloc.h"
-#include <stdio.h>
 
 t_alloc			*add_node(void *address, size_t size, short type)
 {
