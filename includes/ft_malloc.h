@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 12:26:40 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/12/13 13:37:33 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/12/13 15:11:48 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ typedef struct		s_data
 	t_alloc			*alloc;
 }					t_data;
 
-t_data				g_data;
-extern t_data		g_data;
+t_data				g_malloc;
+extern t_data		g_malloc;
 
 void				free(void *ptr);
 void				*malloc(size_t size);

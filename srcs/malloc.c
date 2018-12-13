@@ -6,12 +6,11 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 12:36:45 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/12/13 13:37:45 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/12/13 15:13:08 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_malloc.h"
-#include <stdio.h>
 
 t_alloc			*find_next_alloc_by_type(t_alloc *alloc, short type)
 {
@@ -63,21 +62,21 @@ void			*alloc_tiny(size_t size)
 	void		*check;
 
 	first_alloc = NULL;
-	g_data.alloc != NULL ? first_alloc = g_data.alloc : NULL;
-	address = g_data.tiny_address;
+	g_malloc.alloc != NULL ? first_alloc = g_malloc.alloc : NULL;
+	address = g_malloc.tiny_address;
 	if (!first_alloc || !find_next_alloc_by_type(first_alloc, 0))
 		return (address);
-	while (g_data.alloc)
+	while (g_malloc.alloc)
 	{
-		if ((check = check_position(g_data.alloc, address, size, 0)) != NULL)
+		if ((check = check_position(g_malloc.alloc, address, size, 0)) != NULL)
 			return (check);
-		if (g_data.alloc->type == 0)
+		if (g_malloc.alloc->type == 0)
 		{
-			address = g_data.alloc->end + 1;
-			if (address > g_data.tiny_address + (g_data.pagesize * TINY))
+			address = g_malloc.alloc->end + 1;
+			if (address > g_malloc.tiny_address + (g_malloc.pagesize * TINY))
 				return (NULL);
 		}
-		g_data.alloc = g_data.alloc->next;
+		g_malloc.alloc = g_malloc.alloc->next;
 	}
 	return (address);
 }
@@ -89,22 +88,22 @@ void			*alloc_small(size_t size)
 	void		*check;
 
 	first_alloc = NULL;
-	g_data.alloc != NULL ? first_alloc = g_data.alloc : NULL;
-	address = g_data.small_address;
+	g_malloc.alloc != NULL ? first_alloc = g_malloc.alloc : NULL;
+	address = g_malloc.small_address;
 	if (!first_alloc || !find_next_alloc_by_type(first_alloc, 1))
 		return (address);
-	while (g_data.alloc)
+	while (g_malloc.alloc)
 	{
-		check = check_position(g_data.alloc, address, size, 1);
+		check = check_position(g_malloc.alloc, address, size, 1);
 		if (check != NULL)
 			return (check);
-		if (g_data.alloc->type == 1)
+		if (g_malloc.alloc->type == 1)
 		{
-			address = g_data.alloc->end + 1;
-			if (address > g_data.small_address + (g_data.pagesize * SMALL))
+			address = g_malloc.alloc->end + 1;
+			if (address > g_malloc.small_address + (g_malloc.pagesize * SMALL))
 				return (NULL);
 		}
-		g_data.alloc = g_data.alloc->next;
+		g_malloc.alloc = g_malloc.alloc->next;
 	}
 	return (address);
 }
@@ -117,11 +116,11 @@ void			*malloc(size_t size)
 	addr = NULL;
 	first = NULL;
 	init_address();
-	g_data.alloc ? first = g_data.alloc : NULL;
-	if (size <= g_data.tiny_size && size > 0)
+	g_malloc.alloc ? first = g_malloc.alloc : NULL;
+	if (size <= g_malloc.tiny_size && size > 0)
 		addr = store_alloc(first, alloc_tiny(size), size, 0);
-	if ((size <= g_data.small_size && size > g_data.tiny_size)
-		|| (size <= g_data.tiny_size && size > 0 && addr == NULL))
+	if ((size <= g_malloc.small_size && size > g_malloc.tiny_size)
+		|| (size <= g_malloc.tiny_size && size > 0 && addr == NULL))
 		addr = store_alloc(first, alloc_small(size), size, 1);
 	if (size > 0 && addr == NULL)
 		addr = store_alloc(first, NULL, size, 2);

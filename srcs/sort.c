@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 18:38:26 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/11/02 16:14:21 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/12/13 15:11:48 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,24 +34,24 @@ void				sort_alloc(void)
 	t_alloc			*first;
 
 	first = NULL;
-	g_data.alloc ? (first = g_data.alloc) : NULL;
+	g_malloc.alloc ? (first = g_malloc.alloc) : NULL;
 	if (first == NULL)
 		return ;
-	while (g_data.alloc)
+	while (g_malloc.alloc)
 	{
-		if (g_data.alloc->next)
+		if (g_malloc.alloc->next)
 		{
-			if (g_data.alloc->start > g_data.alloc->next->start)
+			if (g_malloc.alloc->start > g_malloc.alloc->next->start)
 			{
-				swap(&g_data.alloc, &g_data.alloc->next);
-				first ? g_data.alloc = first : NULL;
+				swap(&g_malloc.alloc, &g_malloc.alloc->next);
+				first ? g_malloc.alloc = first : NULL;
 				sort_alloc();
 			}
 		}
-		if (!g_data.alloc->next)
+		if (!g_malloc.alloc->next)
 			break ;
-		g_data.alloc = g_data.alloc->next;
+		g_malloc.alloc = g_malloc.alloc->next;
 	}
-	first ? g_data.alloc = first : NULL;
+	first ? g_malloc.alloc = first : NULL;
 	return ;
 }

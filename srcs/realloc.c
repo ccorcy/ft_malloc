@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 14:07:02 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/12/13 13:40:14 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/12/13 15:11:48 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,25 +33,25 @@ static int		is_enough_place(void *s_addr, void *e_addr, int type)
 {
 	t_alloc		*first_alloc;
 
-	first_alloc = g_data.alloc;
-	while (g_data.alloc)
+	first_alloc = g_malloc.alloc;
+	while (g_malloc.alloc)
 	{
-		if (g_data.alloc->type == type)
+		if (g_malloc.alloc->type == type)
 		{
-			if (g_data.alloc->start != s_addr && e_addr < g_data.alloc->start)
+			if (g_malloc.alloc->start != s_addr && e_addr < g_malloc.alloc->start)
 				return (1);
-			else if (g_data.alloc->start == s_addr
-				&& find_next_alloc_by_type(g_data.alloc->next, type) == NULL)
+			else if (g_malloc.alloc->start == s_addr
+				&& find_next_alloc_by_type(g_malloc.alloc->next, type) == NULL)
 				return (1);
-			else if (!is_another_alloc(first_alloc, g_data.alloc, type))
+			else if (!is_another_alloc(first_alloc, g_malloc.alloc, type))
 				return (1);
-			else if (g_data.alloc->start != s_addr
-				&& e_addr > g_data.alloc->start)
+			else if (g_malloc.alloc->start != s_addr
+				&& e_addr > g_malloc.alloc->start)
 				return (0);
 		}
-		g_data.alloc = g_data.alloc->next;
+		g_malloc.alloc = g_malloc.alloc->next;
 	}
-	g_data.alloc = first_alloc;
+	g_malloc.alloc = first_alloc;
 	return (0);
 }
 
@@ -61,7 +61,7 @@ static void		*realloc_b(t_alloc *fo_alc, size_t s)
 	void		*addr;
 
 	get_block_and_addr(fo_alc, &block_size, &addr);
-	if (fo_alc->start + s <= addr + g_data.pagesize * block_size)
+	if (fo_alc->start + s <= addr + g_malloc.pagesize * block_size)
 	{
 		if (is_enough_place(fo_alc->start, fo_alc->start + s - 1, fo_alc->type))
 		{
@@ -77,12 +77,12 @@ static void		*realloc_b(t_alloc *fo_alc, size_t s)
 
 static void		*realloc_l(t_alloc *fo_alc, size_t s)
 {
-	if (s < g_data.tiny_size && s > 0)
+	if (s < g_malloc.tiny_size && s > 0)
 	{
 		fo_alc->type = 0;
 		return (cpy_before_realloc(s, fo_alc->start));
 	}
-	else if (s < g_data.small_size && s > 0)
+	else if (s < g_malloc.small_size && s > 0)
 	{
 		fo_alc->type = 1;
 		return (cpy_before_realloc(s, fo_alc->start));
@@ -112,24 +112,24 @@ void			*realloc(void *ptr, size_t size)
 
 	init_address();
 	address = NULL;
-	first_alloc = g_data.alloc;
+	first_alloc = g_malloc.alloc;
 	if (!ptr)
 		return (ptr = (void *)malloc(size));
-	while (g_data.alloc)
+	while (g_malloc.alloc)
 	{
-		if (g_data.alloc->start == ptr)
+		if (g_malloc.alloc->start == ptr)
 		{
-			found_alloc = g_data.alloc;
-			g_data.alloc = first_alloc;
+			found_alloc = g_malloc.alloc;
+			g_malloc.alloc = first_alloc;
 			if (found_alloc->type != 2)
 				address = realloc_b(found_alloc, size);
 			else
 				address = realloc_l(found_alloc, size);
 			break ;
 		}
-		if ((g_data.alloc = g_data.alloc->next) == NULL)
+		if ((g_malloc.alloc = g_malloc.alloc->next) == NULL)
 			break ;
 	}
-	g_data.alloc = first_alloc;
+	g_malloc.alloc = first_alloc;
 	return (address != NULL ? address : (void *)malloc(size));
 }

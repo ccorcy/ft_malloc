@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 12:36:45 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/12/13 13:41:22 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/12/13 15:11:48 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 unsigned int		find_ps(size_t size)
 {
-	if (size % g_data.pagesize != 0)
-		size = size % g_data.pagesize
-			+ (g_data.pagesize - size % g_data.pagesize);
+	if (size % g_malloc.pagesize != 0)
+		size = size % g_malloc.pagesize
+			+ (g_malloc.pagesize - size % g_malloc.pagesize);
 	return (size);
 }
 
@@ -25,12 +25,12 @@ void				get_block_and_addr(t_alloc *fo_alc, int *bs, void **addr)
 	if (fo_alc->type == 0)
 	{
 		*bs = TINY;
-		*addr = g_data.tiny_address;
+		*addr = g_malloc.tiny_address;
 	}
 	else
 	{
 		*bs = SMALL;
-		*addr = g_data.small_address;
+		*addr = g_malloc.small_address;
 	}
 	return ;
 }
