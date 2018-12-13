@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 14:09:17 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/12/13 13:26:48 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/12/13 14:59:50 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void			free(void *p)
 
 	first_alloc = g_data.alloc;
 	previous = first_alloc;
-	ft_putaddr(p);
+	found = NULL;
 	while (g_data.alloc)
 	{
 		if (g_data.alloc->start == p)
