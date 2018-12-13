@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 14:09:17 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/12/13 14:59:50 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/12/13 15:01:09 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void			free(void *p)
 		previous = g_data.alloc;
 		g_data.alloc = g_data.alloc->next;
 	}
+	found = found;
 	g_data.alloc = first_alloc;
 	return ;
 }
