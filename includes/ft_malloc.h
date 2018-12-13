@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 12:26:40 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/11/02 13:02:53 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/12/13 13:37:33 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ extern t_data		g_data;
 void				free(void *ptr);
 void				*malloc(size_t size);
 void				*realloc(void *ptr, size_t size);
+void				*calloc(size_t count, size_t size);
 void				show_alloc_mem(void);
-void				init_address(t_data *data);
-void				init_alloc(void);
+void				init_address(void);
 t_alloc				*add_node(void *address, size_t size, short type);
 void				*store_alloc(void *f, void *addr, size_t size, short type);
 void				add_alloc(void *address, size_t size, short type);

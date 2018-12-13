@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   calloc.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/07 13:35:31 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/11/08 17:57:50 by ccorcy           ###   ########.fr       */
+/*   Created: 2018/11/09 14:37:05 by ccorcy            #+#    #+#             */
+/*   Updated: 2018/12/13 13:26:43 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/ft_malloc.h"
 
-void			*ft_memcpy(void *dst, const void *src, size_t n)
+void		*calloc(size_t count, size_t size)
 {
-	char		*d;
-	const char	*s;
+	void	*address;
 
-	d = dst;
-	if (!src)
-		return (dst);
-	s = src;
-	while (n--)
+	if (count < 0 || size < 0)
+		return (NULL);
+	if ((address = (void *)malloc(count * size)) != NULL)
 	{
-		if (*s != 0)
-			*d++ = *s++;
-		else
-			return (dst);
+		ft_bzero(address, count * size);
+		return (address);
 	}
-	return (dst);
+	else
+		return (NULL);
 }

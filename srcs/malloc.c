@@ -6,11 +6,12 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 12:36:45 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/11/02 16:16:33 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/12/13 13:37:45 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_malloc.h"
+#include <stdio.h>
 
 t_alloc			*find_next_alloc_by_type(t_alloc *alloc, short type)
 {
@@ -113,9 +114,9 @@ void			*malloc(size_t size)
 	t_alloc		*first;
 	void		*addr;
 
-	init_address(&g_data);
 	addr = NULL;
 	first = NULL;
+	init_address();
 	g_data.alloc ? first = g_data.alloc : NULL;
 	if (size <= g_data.tiny_size && size > 0)
 		addr = store_alloc(first, alloc_tiny(size), size, 0);

@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 20:28:26 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/11/02 16:36:44 by ccorcy           ###   ########.fr       */
+/*   Updated: 2018/11/09 14:44:51 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,5 @@ void			*cpy_before_realloc(size_t s, void *p)
 		return (new_addr);
 	}
 	else
-	{
 		return (NULL);
-	}
 }
