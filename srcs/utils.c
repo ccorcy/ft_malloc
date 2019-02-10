@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 20:28:26 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/12/13 15:11:48 by ccorcy           ###   ########.fr       */
+/*   Updated: 2019/02/10 14:32:22 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void			*cpy_before_realloc(size_t s, void *p)
 {
 	void		*new_addr;
 
+	p = (void *)p;
 	if ((new_addr = (void *)malloc(s)) != NULL)
 	{
 		new_addr = ft_memcpy(new_addr, p, s);

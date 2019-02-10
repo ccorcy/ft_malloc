@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 14:07:02 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/12/13 15:11:48 by ccorcy           ###   ########.fr       */
+/*   Updated: 2019/02/10 15:03:44 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,5 +131,5 @@ void			*realloc(void *ptr, size_t size)
 			break ;
 	}
 	g_malloc.alloc = first_alloc;
-	return (address != NULL ? address : (void *)malloc(size));
+	return (address != NULL ? address : NULL);
 }

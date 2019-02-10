@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 15:27:44 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/12/13 15:11:48 by ccorcy           ###   ########.fr       */
+/*   Updated: 2019/02/10 14:33:47 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ void		init_address(void)
 			g_malloc.tiny_size = pagesize * TINY / 100;
 		if (g_malloc.small_size == 0)
 			g_malloc.small_size = pagesize * SMALL / 100;
-		return ;
-	} else {
-		return ;
 	}
+	return ;
 }

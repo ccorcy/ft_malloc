@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/07 13:35:31 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/11/08 17:57:50 by ccorcy           ###   ########.fr       */
+/*   Updated: 2019/01/27 16:59:47 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,17 @@
 
 void			*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	char		*d;
-	const char	*s;
+	size_t			i;
+	unsigned char	*saf_dst;
+	unsigned char	*saf_src;
 
-	d = dst;
-	if (!src)
-		return (dst);
-	s = src;
-	while (n--)
+	saf_dst = (unsigned char*)dst;
+	saf_src = (unsigned char*)src;
+	i = 0;
+	while (i < n)
 	{
-		if (*s != 0)
-			*d++ = *s++;
-		else
-			return (dst);
+		saf_dst[i] = saf_src[i];
+		i++;
 	}
 	return (dst);
 }
