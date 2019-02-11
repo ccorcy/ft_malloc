@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 14:07:02 by ccorcy            #+#    #+#             */
-/*   Updated: 2019/02/10 15:03:44 by ccorcy           ###   ########.fr       */
+/*   Updated: 2019/02/11 20:40:14 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,8 @@ static void		*realloc_l(t_alloc *fo_alc, size_t s)
 		}
 	}
 	else
-	{
 		return (cpy_before_realloc(s,
 			fo_alc->start));
-	}
 	return (NULL);
 }
 
