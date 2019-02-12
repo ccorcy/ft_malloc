@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 12:36:45 by ccorcy            #+#    #+#             */
-/*   Updated: 2019/02/11 22:03:43 by ccorcy           ###   ########.fr       */
+/*   Updated: 2019/02/12 21:56:22 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,12 @@ void			*alloc_tiny(size_t size)
 	while (g_malloc.alloc)
 	{
 		if ((check = check_position(g_malloc.alloc, address, size, 0)) != NULL)
-			return (check);
+			address = check;
 		if (g_malloc.alloc->type == 0)
 		{
 			address = g_malloc.alloc->end + 1;
-			if (address < g_malloc.small_address)
+			if (address >= g_malloc.small_address
+				|| address + size >= g_malloc.small_address)
 				return (NULL);
 		}
 		g_malloc.alloc = g_malloc.alloc->next;
@@ -96,11 +97,12 @@ void			*alloc_small(size_t size)
 	{
 		check = check_position(g_malloc.alloc, address, size, 1);
 		if (check != NULL)
-			return (check);
+			address = check;
 		if (g_malloc.alloc->type == 1)
 		{
 			address = g_malloc.alloc->end + 1;
-			if (address < g_malloc.large_address)
+			if (address >= g_malloc.large_address
+				|| address + size >= g_malloc.large_address)
 				return (NULL);
 		}
 		g_malloc.alloc = g_malloc.alloc->next;
@@ -122,9 +124,8 @@ void			*malloc(size_t size)
 	if ((size <= g_malloc.small_size && size > g_malloc.tiny_size)
 		|| (size <= g_malloc.tiny_size && size > 0 && addr == NULL))
 		addr = store_alloc(first, alloc_small(size), size, 1);
-	if (size > 0 && addr == NULL) {
+	if (size > 0 && addr == NULL)
 		addr = store_alloc(first, NULL, size, 2);
-	}
 	sort_alloc();
 	if (addr)
 		return (addr);

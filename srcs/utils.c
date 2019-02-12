@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 20:28:26 by ccorcy            #+#    #+#             */
-/*   Updated: 2019/02/11 22:05:17 by ccorcy           ###   ########.fr       */
+/*   Updated: 2019/02/12 21:19:56 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,10 @@ void			*store_alloc(void *f, void *address, size_t size, short type)
 	if (f)
 		g_malloc.alloc = f;
 	if (!address)
+	{
 		address = call_mmap(size);
+		type = 2;
+	}
 	add_alloc(address, size, type);
 	return (address);
 }
