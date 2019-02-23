@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 20:28:26 by ccorcy            #+#    #+#             */
-/*   Updated: 2019/02/12 21:19:56 by ccorcy           ###   ########.fr       */
+/*   Updated: 2019/02/23 15:16:33 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,18 @@ void			add_alloc(void *address, size_t size, short type)
 	return ;
 }
 
-void			*cpy_before_realloc(size_t s, void *p)
+void			*cpy_before_realloc(size_t s, t_alloc *a)
 {
-	void		*new_addr;
+	void			*new_addr;
+	size_t			size_to_realloc;
 
-	p = (void *)p;
+	size_to_realloc = s;
+	if (s > (unsigned int)(a->end - a->start))
+		size_to_realloc = (a->end - a->start);
 	if ((new_addr = (void *)malloc(s)) != NULL)
 	{
-		new_addr = ft_memcpy(new_addr, p, s);
-		free(p);
+		new_addr = ft_memcpy(new_addr, a->start, size_to_realloc);
+		free(a->start);
 		return (new_addr);
 	}
 	else

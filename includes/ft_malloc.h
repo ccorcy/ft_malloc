@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 12:26:40 by ccorcy            #+#    #+#             */
-/*   Updated: 2019/02/12 21:52:49 by ccorcy           ###   ########.fr       */
+/*   Updated: 2019/02/23 15:12:53 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void				init_address(void);
 t_alloc				*add_node(void *address, size_t size, short type);
 void				*store_alloc(void *f, void *addr, size_t size, short type);
 void				add_alloc(void *address, size_t size, short type);
-void				*cpy_before_realloc(size_t size, void *p);
+void				*cpy_before_realloc(size_t size, t_alloc *a);
 unsigned int		find_ps(size_t size);
 t_alloc				*find_next_alloc_by_type(t_alloc *alloc, short type);
 void				get_block_and_addr(t_alloc *a, int *b, void **adr);

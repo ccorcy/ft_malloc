@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 14:07:02 by ccorcy            #+#    #+#             */
-/*   Updated: 2019/02/11 20:40:14 by ccorcy           ###   ########.fr       */
+/*   Updated: 2019/02/23 15:13:20 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,10 @@ static void		*realloc_b(t_alloc *fo_alc, size_t s)
 			return (fo_alc->start);
 		}
 		else
-			return (cpy_before_realloc(s, fo_alc->start));
+			return (cpy_before_realloc(s, fo_alc));
 	}
 	else
-		return (cpy_before_realloc(s, fo_alc->start));
+		return (cpy_before_realloc(s, fo_alc));
 }
 
 static void		*realloc_l(t_alloc *fo_alc, size_t s)
@@ -80,12 +80,12 @@ static void		*realloc_l(t_alloc *fo_alc, size_t s)
 	if (s < g_malloc.tiny_size && s > 0)
 	{
 		fo_alc->type = 0;
-		return (cpy_before_realloc(s, fo_alc->start));
+		return (cpy_before_realloc(s, fo_alc));
 	}
 	else if (s < g_malloc.small_size && s > 0)
 	{
 		fo_alc->type = 1;
-		return (cpy_before_realloc(s, fo_alc->start));
+		return (cpy_before_realloc(s, fo_alc));
 	}
 	if (fo_alc->start + s <= fo_alc->end)
 	{
@@ -98,7 +98,7 @@ static void		*realloc_l(t_alloc *fo_alc, size_t s)
 	}
 	else
 		return (cpy_before_realloc(s,
-			fo_alc->start));
+			fo_alc));
 	return (NULL);
 }
 
