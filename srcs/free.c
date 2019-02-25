@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 14:09:17 by ccorcy            #+#    #+#             */
-/*   Updated: 2019/02/10 14:32:30 by ccorcy           ###   ########.fr       */
+/*   Updated: 2019/02/25 14:35:31 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void			free(void *p)
 {
 	void		*first_alloc;
 	t_alloc		*previous;
-	t_alloc		*found;
 
 	first_alloc = g_malloc.alloc;
 	previous = first_alloc;
@@ -24,7 +23,6 @@ void			free(void *p)
 	{
 		if (g_malloc.alloc->start == p)
 		{
-			found = g_malloc.alloc;
 			if (g_malloc.alloc->type == 2)
 				munmap(p,
 					find_ps(g_malloc.alloc->end - g_malloc.alloc->start + 1));

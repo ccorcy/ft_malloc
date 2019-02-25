@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 14:07:02 by ccorcy            #+#    #+#             */
-/*   Updated: 2019/02/23 15:13:20 by ccorcy           ###   ########.fr       */
+/*   Updated: 2019/02/25 14:46:05 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int		is_another_alloc(t_alloc *f, t_alloc *alloc, int type)
 	return (0);
 }
 
-static int		is_enough_place(void *s_addr, void *e_addr, int type)
+static int		is_enough_place(void *s_ad, void *e_ad, int type)
 {
 	t_alloc		*first_alloc;
 
@@ -38,15 +38,15 @@ static int		is_enough_place(void *s_addr, void *e_addr, int type)
 	{
 		if (g_malloc.alloc->type == type)
 		{
-			if (g_malloc.alloc->start != s_addr && e_addr < g_malloc.alloc->start)
+			if (g_malloc.alloc->start != s_ad && e_ad < g_malloc.alloc->start)
 				return (1);
-			else if (g_malloc.alloc->start == s_addr
+			else if (g_malloc.alloc->start == s_ad
 				&& find_next_alloc_by_type(g_malloc.alloc->next, type) == NULL)
 				return (1);
 			else if (!is_another_alloc(first_alloc, g_malloc.alloc, type))
 				return (1);
-			else if (g_malloc.alloc->start != s_addr
-				&& e_addr > g_malloc.alloc->start)
+			else if (g_malloc.alloc->start != s_ad
+				&& e_ad > g_malloc.alloc->start)
 				return (0);
 		}
 		g_malloc.alloc = g_malloc.alloc->next;
@@ -97,8 +97,7 @@ static void		*realloc_l(t_alloc *fo_alc, size_t s)
 		}
 	}
 	else
-		return (cpy_before_realloc(s,
-			fo_alc));
+		return (cpy_before_realloc(s, fo_alc));
 	return (NULL);
 }
 
@@ -120,10 +119,9 @@ void			*realloc(void *ptr, size_t size)
 			found_alloc = g_malloc.alloc;
 			g_malloc.alloc = first_alloc;
 			if (found_alloc->type != 2)
-				address = realloc_b(found_alloc, size);
+				return (address = realloc_b(found_alloc, size));
 			else
-				address = realloc_l(found_alloc, size);
-			break ;
+				return (address = realloc_l(found_alloc, size));
 		}
 		if ((g_malloc.alloc = g_malloc.alloc->next) == NULL)
 			break ;

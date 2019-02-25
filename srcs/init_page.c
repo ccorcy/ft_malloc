@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 15:27:44 by ccorcy            #+#    #+#             */
-/*   Updated: 2019/02/10 14:33:47 by ccorcy           ###   ########.fr       */
+/*   Updated: 2019/02/25 14:34:00 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ void		init_address(void)
 {
 	int		pagesize;
 
-	if (!g_malloc.pagesize) {
+	if (!g_malloc.pagesize)
+	{
 		pagesize = getpagesize();
 		g_malloc.pagesize = pagesize;
 		if (g_malloc.tiny_address == NULL)
