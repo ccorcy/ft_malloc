@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 12:36:45 by ccorcy            #+#    #+#             */
-/*   Updated: 2019/02/25 14:35:44 by ccorcy           ###   ########.fr       */
+/*   Updated: 2019/02/26 15:40:22 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_alloc			*find_next_alloc_by_type(t_alloc *alloc, short type)
 	first_alloc = alloc;
 	while (alloc)
 	{
+		ft_putstr("find next alloc by type\n");
 		if (alloc->type == type)
 		{
 			found_alloc = alloc;
@@ -62,6 +63,7 @@ void			*alloc_tiny(size_t size)
 	void		*check;
 
 	first_alloc = NULL;
+	ft_putstr("alloc tiny\n");
 	g_malloc.alloc != NULL ? first_alloc = g_malloc.alloc : NULL;
 	address = g_malloc.tiny_address;
 	if (!first_alloc || !find_next_alloc_by_type(first_alloc, 0))
@@ -119,6 +121,7 @@ void			*malloc(size_t size)
 	first = NULL;
 	init_address();
 	g_malloc.alloc ? first = g_malloc.alloc : NULL;
+	ft_putstr("malloc\n");
 	if (size <= g_malloc.tiny_size && size > 0)
 		addr = store_alloc(first, alloc_tiny(size), size, 0);
 	if ((size <= g_malloc.small_size && size > g_malloc.tiny_size)
@@ -126,7 +129,8 @@ void			*malloc(size_t size)
 		addr = store_alloc(first, alloc_small(size), size, 1);
 	if (size > 0 && addr == NULL)
 		addr = store_alloc(first, NULL, size, 2);
-	sort_alloc();
+	// sort_alloc();
+	show_alloc_mem();
 	if (addr)
 		return (addr);
 	else

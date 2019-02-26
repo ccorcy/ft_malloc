@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 20:28:26 by ccorcy            #+#    #+#             */
-/*   Updated: 2019/02/23 15:16:33 by ccorcy           ###   ########.fr       */
+/*   Updated: 2019/02/26 15:43:45 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,9 @@ t_alloc			*add_node(void *address, size_t size, short type)
 {
 	t_alloc		*node;
 
-	if ((node = (t_alloc *)call_mmap(sizeof(t_alloc))) == NULL)
-		return (NULL);
-	node->start = address;
-	node->end = address + size - 1;
+	node = address;
+	node->start = address + sizeof(t_alloc);
+	node->end = node->start + size - 1;
 	node->type = type;
 	node->next = NULL;
 	return (node);

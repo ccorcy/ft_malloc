@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 18:38:26 by ccorcy            #+#    #+#             */
-/*   Updated: 2018/12/13 15:11:48 by ccorcy           ###   ########.fr       */
+/*   Updated: 2019/02/26 15:39:51 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void				sort_alloc(void)
 			{
 				swap(&g_malloc.alloc, &g_malloc.alloc->next);
 				first ? g_malloc.alloc = first : NULL;
-				sort_alloc();
+				// sort_alloc();
 			}
 		}
 		if (!g_malloc.alloc->next)

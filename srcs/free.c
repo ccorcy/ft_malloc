@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 14:09:17 by ccorcy            #+#    #+#             */
-/*   Updated: 2019/02/25 14:35:31 by ccorcy           ###   ########.fr       */
+/*   Updated: 2019/02/26 15:17:27 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void			free(void *p)
 	previous = first_alloc;
 	while (g_malloc.alloc)
 	{
+		ft_putstr("free\n");
 		if (g_malloc.alloc->start == p)
 		{
 			if (g_malloc.alloc->type == 2)
