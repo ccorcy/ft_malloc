@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 20:28:26 by ccorcy            #+#    #+#             */
-/*   Updated: 2019/02/26 15:43:45 by ccorcy           ###   ########.fr       */
+/*   Updated: 2019/03/02 13:06:53 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void			*call_mmap(size_t size)
 
 void			*store_alloc(void *f, void *address, size_t size, short type)
 {
+	void		*new_addr;
+
 	if (f)
 		g_malloc.alloc = f;
 	if (!address)
@@ -44,16 +46,20 @@ void			*store_alloc(void *f, void *address, size_t size, short type)
 		address = call_mmap(size);
 		type = 2;
 	}
-	add_alloc(address, size, type);
-	return (address);
+	new_addr = add_alloc(address, size, type);
+	return (new_addr);
 }
 
-void			add_alloc(void *address, size_t size, short type)
+void			*add_alloc(void *address, size_t size, short type)
 {
 	void		*first_alloc;
+	void		*new_addr;
 
 	if (!g_malloc.alloc)
+	{
 		g_malloc.alloc = add_node(address, size, type);
+		new_addr = g_malloc.alloc->start;
+	}
 	else
 	{
 		first_alloc = g_malloc.alloc;
@@ -61,9 +67,10 @@ void			add_alloc(void *address, size_t size, short type)
 			g_malloc.alloc = g_malloc.alloc->next;
 		if (!g_malloc.alloc->next)
 			g_malloc.alloc->next = add_node(address, size, type);
+		new_addr = g_malloc.alloc->next->start;
 		g_malloc.alloc = first_alloc;
 	}
-	return ;
+	return (new_addr);
 }
 
 void			*cpy_before_realloc(size_t s, t_alloc *a)

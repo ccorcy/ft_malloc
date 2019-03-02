@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 14:09:17 by ccorcy            #+#    #+#             */
-/*   Updated: 2019/02/26 15:17:27 by ccorcy           ###   ########.fr       */
+/*   Updated: 2019/03/02 13:12:15 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@ void			free(void *p)
 
 	first_alloc = g_malloc.alloc;
 	previous = first_alloc;
+	show_alloc_mem();
+	ft_putstr("free\n");
 	while (g_malloc.alloc)
 	{
-		ft_putstr("free\n");
 		if (g_malloc.alloc->start == p)
 		{
 			if (g_malloc.alloc->type == 2)
@@ -31,12 +32,12 @@ void			free(void *p)
 				first_alloc = g_malloc.alloc->next;
 			else
 				previous->next = g_malloc.alloc->next;
-			munmap(g_malloc.alloc, find_ps(sizeof(t_alloc)));
 			break ;
 		}
 		previous = g_malloc.alloc;
 		g_malloc.alloc = g_malloc.alloc->next;
 	}
 	g_malloc.alloc = first_alloc;
+	ft_putstr("end free\n");
 	return ;
 }

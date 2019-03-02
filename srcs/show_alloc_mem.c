@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/21 12:04:29 by ccorcy            #+#    #+#             */
-/*   Updated: 2019/02/26 15:25:59 by ccorcy           ###   ########.fr       */
+/*   Updated: 2019/03/02 13:07:28 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void			show_alloc_mem(void)
 	t_alloc		*first_alloc;
 
 	first_alloc = g_malloc.alloc;
-	// sort_alloc();
+	sort_alloc();
 	show_tiny(first_alloc);
 	show_small(first_alloc);
 	show_large(first_alloc);
