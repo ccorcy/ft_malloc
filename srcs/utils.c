@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 20:28:26 by ccorcy            #+#    #+#             */
-/*   Updated: 2019/03/02 13:06:53 by ccorcy           ###   ########.fr       */
+/*   Updated: 2019/03/03 17:35:35 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,17 @@ void			*cpy_before_realloc(size_t s, t_alloc *a)
 
 	size_to_realloc = s;
 	if (s > (unsigned int)(a->end - a->start))
-		size_to_realloc = (a->end - a->start);
+		size_to_realloc = (a->end - a->start + 1);
 	if ((new_addr = (void *)malloc(s)) != NULL)
 	{
+		show_alloc_mem();
+		ft_putnbr(size_to_realloc);
+		ft_putchar('\n');
+		ft_putaddr(a->start);
+		ft_putchar('\n');
+		ft_putstr("ft_memcpy\n");
 		new_addr = ft_memcpy(new_addr, a->start, size_to_realloc);
+		ft_putstr("free\n");
 		free(a->start);
 		return (new_addr);
 	}

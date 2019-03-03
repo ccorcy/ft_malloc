@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 14:07:02 by ccorcy            #+#    #+#             */
-/*   Updated: 2019/03/02 13:08:09 by ccorcy           ###   ########.fr       */
+/*   Updated: 2019/03/03 16:58:37 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ static int		is_enough_place(void *s_ad, void *e_ad, int type)
 	{
 		if (g_malloc.alloc->type == type)
 		{
-			if (g_malloc.alloc->start != s_ad && e_ad < g_malloc.alloc->start)
+			if (g_malloc.alloc->start != s_ad
+				&& e_ad < (g_malloc.alloc->start - sizeof(t_alloc)))
 				return (1);
 			else if (g_malloc.alloc->start == s_ad
 				&& find_next_alloc_by_type(g_malloc.alloc->next, type) == NULL)
@@ -89,7 +90,7 @@ static void		*realloc_l(t_alloc *fo_alc, size_t s)
 	}
 	if (fo_alc->start + s <= fo_alc->end)
 	{
-		if (munmap(fo_alc->start,
+		if (munmap((void *)(fo_alc->end - fo_alc->start + s - 1),
 			find_ps(fo_alc->end - fo_alc->start + s - 1)) != -1)
 		{
 			fo_alc->end = fo_alc->start + s - 1;
@@ -108,11 +109,11 @@ void			*realloc(void *ptr, size_t size)
 	void		*address;
 
 	init_address();
+	show_alloc_mem();
 	address = NULL;
 	first_alloc = g_malloc.alloc;
 	if (!ptr)
 		return (ptr = (void *)malloc(size));
-	ft_putstr("realloc\n");
 	while (g_malloc.alloc)
 	{
 		if (g_malloc.alloc->start == ptr)

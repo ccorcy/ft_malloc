@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 12:36:45 by ccorcy            #+#    #+#             */
-/*   Updated: 2019/03/02 13:08:32 by ccorcy           ###   ########.fr       */
+/*   Updated: 2019/03/03 15:42:51 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ t_alloc			*find_next_alloc_by_type(t_alloc *alloc, short type)
 	first_alloc = alloc;
 	while (alloc)
 	{
-		ft_putstr("find next alloc by type\n");
 		if (alloc->type == type)
 		{
 			found_alloc = alloc;
@@ -120,7 +119,6 @@ void			*malloc(size_t size)
 	first = NULL;
 	init_address();
 	g_malloc.alloc ? first = g_malloc.alloc : NULL;
-	ft_putstr("malloc\n");
 	if (size <= g_malloc.tiny_size && size > 0)
 		addr = store_alloc(first, alloc_tiny(size), size, 0);
 	if ((size <= g_malloc.small_size && size > g_malloc.tiny_size)
@@ -129,7 +127,6 @@ void			*malloc(size_t size)
 	if (size > 0 && addr == NULL)
 		addr = store_alloc(first, NULL, size, 2);
 	sort_alloc();
-	ft_putstr("end malloc\n");
 	if (addr)
 		return (addr);
 	else
