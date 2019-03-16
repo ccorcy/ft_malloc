@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 20:28:26 by ccorcy            #+#    #+#             */
-/*   Updated: 2019/03/03 17:35:35 by ccorcy           ###   ########.fr       */
+/*   Updated: 2019/03/16 17:45:27 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,27 @@ void			*call_mmap(size_t size)
 	pagesize = find_ps(size);
 	ptr = mmap(NULL, pagesize, PROT_READ | PROT_WRITE,
 		MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
+	ft_putaddr(ptr);
 	return (ptr);
 }
 
 void			*store_alloc(void *f, void *address, size_t size, short type)
 {
-	void		*new_addr;
-
 	if (f)
 		g_malloc.alloc = f;
-	if (!address)
+	if (!address && type == 2)
 	{
-		address = call_mmap(size);
+		address = call_mmap(size + sizeof(t_alloc));
 		type = 2;
 	}
-	new_addr = add_alloc(address, size, type);
-	return (new_addr);
+	if (address)
+	{
+		return (add_alloc(address, size, type));
+	}
+	else
+	{
+		return (NULL);
+	}	
 }
 
 void			*add_alloc(void *address, size_t size, short type)
@@ -79,18 +84,13 @@ void			*cpy_before_realloc(size_t s, t_alloc *a)
 	size_t			size_to_realloc;
 
 	size_to_realloc = s;
+	ft_putstr("cpy before realloc\n");
 	if (s > (unsigned int)(a->end - a->start))
 		size_to_realloc = (a->end - a->start + 1);
 	if ((new_addr = (void *)malloc(s)) != NULL)
 	{
 		show_alloc_mem();
-		ft_putnbr(size_to_realloc);
-		ft_putchar('\n');
-		ft_putaddr(a->start);
-		ft_putchar('\n');
-		ft_putstr("ft_memcpy\n");
 		new_addr = ft_memcpy(new_addr, a->start, size_to_realloc);
-		ft_putstr("free\n");
 		free(a->start);
 		return (new_addr);
 	}

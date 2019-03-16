@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 14:07:02 by ccorcy            #+#    #+#             */
-/*   Updated: 2019/03/03 16:58:37 by ccorcy           ###   ########.fr       */
+/*   Updated: 2019/03/16 17:35:09 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,11 +109,11 @@ void			*realloc(void *ptr, size_t size)
 	void		*address;
 
 	init_address();
-	show_alloc_mem();
 	address = NULL;
 	first_alloc = g_malloc.alloc;
 	if (!ptr)
 		return (ptr = (void *)malloc(size));
+	ft_putstr("realloc\n");
 	while (g_malloc.alloc)
 	{
 		if (g_malloc.alloc->start == ptr)
