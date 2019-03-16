@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 12:36:45 by ccorcy            #+#    #+#             */
-/*   Updated: 2019/03/02 12:55:52 by ccorcy           ###   ########.fr       */
+/*   Updated: 2019/03/16 18:15:15 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
 
 unsigned int		find_ps(size_t size)
 {
-	size += sizeof(t_alloc);
 	if (size % g_malloc.pagesize != 0)
-		size = size % g_malloc.pagesize
-			+ (g_malloc.pagesize - size % g_malloc.pagesize);
+		size += size % g_malloc.pagesize;
 	return (size);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 20:28:26 by ccorcy            #+#    #+#             */
-/*   Updated: 2019/03/16 17:45:27 by ccorcy           ###   ########.fr       */
+/*   Updated: 2019/03/16 18:16:03 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void			*call_mmap(size_t size)
 	pagesize = find_ps(size);
 	ptr = mmap(NULL, pagesize, PROT_READ | PROT_WRITE,
 		MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
-	ft_putaddr(ptr);
 	return (ptr);
 }
 
@@ -84,12 +83,10 @@ void			*cpy_before_realloc(size_t s, t_alloc *a)
 	size_t			size_to_realloc;
 
 	size_to_realloc = s;
-	ft_putstr("cpy before realloc\n");
 	if (s > (unsigned int)(a->end - a->start))
 		size_to_realloc = (a->end - a->start + 1);
 	if ((new_addr = (void *)malloc(s)) != NULL)
 	{
-		show_alloc_mem();
 		new_addr = ft_memcpy(new_addr, a->start, size_to_realloc);
 		free(a->start);
 		return (new_addr);

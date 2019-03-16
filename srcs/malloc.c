@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 12:36:45 by ccorcy            #+#    #+#             */
-/*   Updated: 2019/03/16 17:41:23 by ccorcy           ###   ########.fr       */
+/*   Updated: 2019/03/16 18:16:11 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,12 +124,8 @@ void			*malloc(size_t size)
 	if ((size <= g_malloc.small_size && size > g_malloc.tiny_size)
 		|| (size <= g_malloc.tiny_size && size > 0 && addr == NULL))
 		addr = store_alloc(first, alloc_small(size), size, 1);
-	if (size > 0 && addr == NULL) {
-		ft_putstr("alloc large\n");
-		ft_putnbr(size);
-		ft_putchar('\n');
+	if (size > 0 && addr == NULL)
 		addr = store_alloc(first, NULL, size, 2);
-	}
 	sort_alloc();
 	if (addr)
 		return (addr);
