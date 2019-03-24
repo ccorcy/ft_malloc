@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 18:38:26 by ccorcy            #+#    #+#             */
-/*   Updated: 2019/03/16 17:57:17 by ccorcy           ###   ########.fr       */
+/*   Updated: 2019/03/24 18:35:51 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ void				sort_alloc(void)
 	{
 		if (g_malloc.alloc->next)
 		{
-			if (g_malloc.alloc->start > g_malloc.alloc->next->start)
+			if (g_malloc.alloc->start > g_malloc.alloc->next->start
+				&& g_malloc.alloc->type == g_malloc.alloc->next->type)
 			{
 				swap(&g_malloc.alloc, &g_malloc.alloc->next);
 				first ? g_malloc.alloc = first : NULL;
