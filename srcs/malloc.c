@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 12:36:45 by ccorcy            #+#    #+#             */
-/*   Updated: 2019/03/16 18:16:11 by ccorcy           ###   ########.fr       */
+/*   Updated: 2019/03/24 19:26:32 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ void			*alloc_tiny(size_t size)
 		if (g_malloc.alloc->type == 0)
 		{
 			address = g_malloc.alloc->end + 1;
-			if (address >= g_malloc.small_address
-				|| address + size >= g_malloc.small_address)
+			if (address >= g_malloc.m_tiny
+				|| address + size >= g_malloc.m_tiny)
 				return (NULL);
 		}
 		g_malloc.alloc = g_malloc.alloc->next;
@@ -101,8 +101,8 @@ void			*alloc_small(size_t size)
 		if (g_malloc.alloc->type == 1)
 		{
 			address = g_malloc.alloc->end + 1;
-			if (address >= g_malloc.large_address
-				|| address + size >= g_malloc.large_address)
+			if (address >= g_malloc.m_small
+				|| address + size >= g_malloc.m_small)
 					return (NULL);
 		}
 		g_malloc.alloc = g_malloc.alloc->next;

@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 12:26:40 by ccorcy            #+#    #+#             */
-/*   Updated: 2019/03/02 13:04:21 by ccorcy           ###   ########.fr       */
+/*   Updated: 2019/03/24 19:27:52 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include <unistd.h>
 # include "../libft/libft.h"
 
-# define TINY 32
-# define SMALL 1726
+# define TINY 1024
+# define SMALL 2048
 
 typedef struct		s_alloc
 {
@@ -34,6 +34,8 @@ typedef struct		s_data
 	void			*tiny_address;
 	void			*small_address;
 	void			*large_address;
+	void			*m_small;
+	void			*m_tiny;
 	unsigned int	tiny_size;
 	unsigned int	small_size;
 	int				pagesize;
