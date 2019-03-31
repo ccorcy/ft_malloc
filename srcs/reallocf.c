@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 11:52:10 by ccorcy            #+#    #+#             */
-/*   Updated: 2019/03/24 18:28:02 by ccorcy           ###   ########.fr       */
+/*   Updated: 2019/03/31 18:37:51 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,5 @@ void	*reallocf(void *ptr, size_t size)
 	new_address = (void *)realloc(ptr, size);
 	if (new_address == NULL)
 		free(ptr);
-	else
-		return (new_address);
+	return (new_address);
 }

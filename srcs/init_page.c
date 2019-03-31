@@ -6,11 +6,18 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 15:27:44 by ccorcy            #+#    #+#             */
-/*   Updated: 2019/03/24 19:25:07 by ccorcy           ###   ########.fr       */
+/*   Updated: 2019/03/31 18:12:12 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_malloc.h"
+
+void		set_max_address(int pagesize, void *t_addr, void *s_addr)
+{
+	g_malloc.m_tiny = t_addr + (pagesize * TINY);
+	g_malloc.m_small = s_addr + (pagesize * SMALL);
+	g_malloc.large_address = s_addr + (pagesize * SMALL);
+}
 
 void		init_address(void)
 {
@@ -20,22 +27,18 @@ void		init_address(void)
 	{
 		pagesize = getpagesize();
 		g_malloc.pagesize = pagesize;
-		if (g_malloc.tiny_address == NULL) {
-			g_malloc.tiny_address = mmap(NULL, pagesize * TINY,
+		if (g_malloc.tiny_address == NULL)
+			g_malloc.tiny_address = mmap(NULL, find_ps(pagesize * TINY),
 			PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-			g_malloc.m_tiny = g_malloc.tiny_address + pagesize * TINY;
-		}
 		if (g_malloc.small_address == NULL)
-		{
-			g_malloc.small_address = mmap(NULL, pagesize * SMALL,
+			g_malloc.small_address = mmap(NULL, find_ps(pagesize * SMALL),
 			PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-			g_malloc.m_small = g_malloc.small_address + pagesize * SMALL;
-			g_malloc.large_address = g_malloc.small_address + pagesize * SMALL;
-		}
+		set_max_address(pagesize, &g_malloc.tiny_address,
+			&g_malloc.small_address);
 		if (g_malloc.tiny_size == 0)
-			g_malloc.tiny_size = pagesize * TINY / 100;
+			g_malloc.tiny_size = (pagesize * TINY - sizeof(t_alloc)) / 100;
 		if (g_malloc.small_size == 0)
-			g_malloc.small_size = pagesize * SMALL / 100;
+			g_malloc.small_size = (pagesize * SMALL - sizeof(t_alloc)) / 100;
 	}
 	return ;
 }
