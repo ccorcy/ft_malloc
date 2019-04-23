@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 20:28:26 by ccorcy            #+#    #+#             */
-/*   Updated: 2019/03/16 18:16:03 by ccorcy           ###   ########.fr       */
+/*   Updated: 2019/04/23 10:08:53 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void			*store_alloc(void *f, void *address, size_t size, short type)
 	else
 	{
 		return (NULL);
-	}	
+	}
 }
 
 void			*add_alloc(void *address, size_t size, short type)

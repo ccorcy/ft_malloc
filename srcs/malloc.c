@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 12:36:45 by ccorcy            #+#    #+#             */
-/*   Updated: 2019/03/31 18:10:25 by ccorcy           ###   ########.fr       */
+/*   Updated: 2019/04/23 10:09:23 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void			*alloc_small(size_t size)
 			address = g_malloc.alloc->end + 1;
 			if (address >= g_malloc.m_small
 				|| address + size >= g_malloc.m_small)
-					return (NULL);
+				return (NULL);
 		}
 		g_malloc.alloc = g_malloc.alloc->next;
 	}
