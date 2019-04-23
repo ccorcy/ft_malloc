@@ -6,7 +6,7 @@
 /*   By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 12:26:40 by ccorcy            #+#    #+#             */
-/*   Updated: 2019/03/31 18:31:06 by ccorcy           ###   ########.fr       */
+/*   Updated: 2019/04/02 12:12:23 by ccorcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void				free(void *ptr);
 void				*malloc(size_t size);
 void				*realloc(void *ptr, size_t size);
 void				*calloc(size_t count, size_t size);
+void				*reallocf(void *ptr, size_t size);
 void				show_alloc_mem(void);
 void				init_address(void);
 t_alloc				*add_node(void *address, size_t size, short type);

@@ -6,7 +6,7 @@
 #    By: ccorcy <ccorcy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/05/07 13:04:16 by ccorcy            #+#    #+#              #
-#    Updated: 2018/11/09 14:41:07 by ccorcy           ###   ########.fr        #
+#    Updated: 2019/04/02 15:39:33 by ccorcy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ NAME = main
 SRCS = $(SRCDIR)/free.c $(SRCDIR)/init_page.c \
 		$(SRCDIR)/malloc.c $(SRCDIR)/page_size.c $(SRCDIR)/realloc.c \
 		$(SRCDIR)/utils.c $(SRCDIR)/show_alloc_mem.c $(SRCDIR)/sort.c \
-		$(SRCDIR)/calloc.c
+		$(SRCDIR)/calloc.c $(SRCDIR)/reallocf.c
 OBJS = $(patsubst $(SRCDIR)/%, $(OBJDIR)/%, $(SRCS:.c=.o))
 FLAGS = -Wall -Werror -Wextra
 
